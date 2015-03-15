@@ -1,0 +1,14 @@
+path{
+  fill: none;
+  stroke-linecap: round;
+  &#container{
+    stroke: #ccc;
+    stroke-width: 5px;
+  }
+  &#linel{
+    stroke:red;
+    stroke-width: 3px;
+    stroke-dasharray: 10px 900px;
+    stroke-dashoffset: -1px;
+  }
+}
