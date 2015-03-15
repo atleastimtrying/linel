@@ -8,7 +8,6 @@ window.linel.Direction = function(events){
   var apply_direction = function(state){
     if(input_direction){
       state.direction = input_direction;
-      input_direction = 0;
     }
     events.pub('direction_chosen', state);
   };
