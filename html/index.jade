@@ -1,0 +1,16 @@
+doctype html
+html(manifest='manifest.appcache')
+  head
+    include partials/header.jade
+
+  body
+    h1 Hello Carabiner!
+    p This file is here as an example of how to use the appcache (look at the html node above), scripts and partials (includes).
+    p
+      | You can run
+      code  grunt-souce dev
+      |  to have everything compiled and hosted as you change it.
+    p You probably want to remove this file, or at least modify it heavily!
+    p Good luck and have fun!
+
+    script(src='app.js')
