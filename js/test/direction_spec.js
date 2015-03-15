@@ -1,10 +1,10 @@
 describe('direction', function(){
-  var stub, events, direction, direction_spy;
+  var events, direction_spy;
 
   beforeEach(function(){
-    stub  = { direction_chosen: function(){} };
+    var stub  = { direction_chosen: function(){} };
     events = new window.linel.Events();
-    direction = new window.linel.Direction(events);
+    var direction = new window.linel.Direction(events);
     direction_spy = spyOn(stub, 'direction_chosen');
     events.sub('direction_chosen', stub.direction_chosen);
   });
