@@ -1,0 +1,3 @@
+window.linel.World = function(){
+
+};

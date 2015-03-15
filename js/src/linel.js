@@ -1,0 +1,2 @@
+window.linel.Linel = function(){
+};
