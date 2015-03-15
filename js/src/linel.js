@@ -6,5 +6,10 @@ window.linel.Linel = function(events){
     callback(position);
   };
 
+  var move = function(modifier){
+    position += modifier;
+  };
+
   events.sub('get linel position', return_position);
+  events.sub('move linel', move);
 };

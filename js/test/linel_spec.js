@@ -43,4 +43,27 @@ describe('linel', function(){
 
     expect(position_spy).toHaveBeenCalledWith(0);
   });
+
+  context('should change position when asked to move', function(){
+    var events, chap;
+    beforeEach(function(){
+      events = events_factory();
+      chap = linel_factory(events);
+    });
+
+    he('moves right', function(){
+      events.pub('move linel', 5);
+
+      var position_spy = event_spy_factory(events, 'get linel position');
+      expect(position_spy).toHaveBeenCalledWith(5);
+    });
+
+    he('moves left', function(){
+      events.pub('move linel', -0.7);
+
+      var position_spy = event_spy_factory(events, 'get linel position');
+      expect(position_spy).toHaveBeenCalledWith(-0.7);
+    });
+
+  });
 });
