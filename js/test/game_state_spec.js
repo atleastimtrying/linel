@@ -18,12 +18,34 @@ describe('game_state',function(){
   });
 
   it('continue_game if neither win nor loses', function(){
-    var old_state = {};
-    var new_state = {};
+    var old_state = {
+      position: 50
+    };
+
+    var new_state = {
+      position: 50
+    };
+
     events.pub('dom_updated', old_state);
     expect(continue_spy).toHaveBeenCalledWith(new_state);
   });
 
-  it('win_game if winning state');
-  it('lose_game if losing state');
+  it('win_game if winning state', function(){
+    var old_state = {
+      position: 101
+    };
+    var new_state = {};
+    events.pub('dom_updated', old_state);
+    expect(win_spy).toHaveBeenCalled();
+  });
+
+  it('lose_game if losing state', function(){
+    var old_state = {
+      position: -3
+    };
+    var new_state = {};
+    events.pub('dom_updated', old_state);
+    expect(lose_spy).toHaveBeenCalled();
+  });
+
 });

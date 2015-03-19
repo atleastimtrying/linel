@@ -2,7 +2,8 @@ window.linel.Velocity = function(events){
   var update_velocity = function(old_state){
     return {
       direction: old_state.direction,
-      velocity: old_state.velocity + old_state.direction
+      velocity: old_state.velocity + old_state.direction,
+      position: old_state.position
     };
   };
 

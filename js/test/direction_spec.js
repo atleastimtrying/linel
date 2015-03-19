@@ -16,7 +16,7 @@ describe('direction', function(){
 
     events.pub('input_changed', 1);
 
-    events.pub('game_continue', old_state);
+    events.pub('continue_game', old_state);
     expect(direction_spy).toHaveBeenCalledWith(new_state);
   });
 
@@ -27,7 +27,7 @@ describe('direction', function(){
 
     events.pub('input_changed', -1);
 
-    events.pub('game_continue', old_state);
+    events.pub('continue_game', old_state);
     expect(direction_spy).toHaveBeenCalledWith(new_state);
   });
 
@@ -38,7 +38,7 @@ describe('direction', function(){
 
     events.pub('input_changed', 0);
 
-    events.pub('game_continue', old_state);
+    events.pub('continue_game', old_state);
     expect(direction_spy).toHaveBeenCalledWith(new_state);
   });
 
@@ -49,7 +49,7 @@ describe('direction', function(){
 
     events.pub('input_changed', -1);
 
-    events.pub('game_continue', old_state);
+    events.pub('continue_game', old_state);
     expect(direction_spy).toHaveBeenCalledWith(new_state);
   });
 
@@ -60,7 +60,7 @@ describe('direction', function(){
 
     events.pub('input_changed', 1);
 
-    events.pub('game_continue', old_state);
+    events.pub('continue_game', old_state);
     expect(direction_spy).toHaveBeenCalledWith(new_state);
   });
 

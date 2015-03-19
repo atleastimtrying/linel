@@ -12,7 +12,8 @@ describe("Velocity", function(){
   it("updates_velocity after direction_chosen", function(){
     var old_state = {
       direction: 1,
-      velocity: 1
+      velocity: 1,
+      position: 0
     };
 
     events.pub('direction_chosen', old_state);
@@ -22,12 +23,14 @@ describe("Velocity", function(){
   it('accelerates if previous velocity was positive and direction positive', function(){
     var old_state = {
       direction: 1,
-      velocity: 1
+      velocity: 1,
+      position: 0
     };
 
     var new_state = {
-      direction:1,
+      direction: 1,
       velocity: 2,
+      position: 0
     };
 
     events.pub('direction_chosen', old_state);
@@ -38,12 +41,14 @@ describe("Velocity", function(){
       , function(){
     var old_state = {
       direction: -1,
-      velocity: 2
+      velocity: 2,
+      position: 0
     };
 
     var new_state = {
       direction: -1,
       velocity: 1,
+      position: 0
     };
 
     events.pub('direction_chosen', old_state);
@@ -53,12 +58,14 @@ describe("Velocity", function(){
   it('accelerates if previous velocity was negative and direction negative', function(){
     var old_state = {
       direction: -1,
-      velocity: -1
+      velocity: -1,
+      position: 0
     };
 
     var new_state = {
       direction: -1,
       velocity: -2,
+      position: 0
     };
 
     events.pub('direction_chosen', old_state);
@@ -68,12 +75,14 @@ describe("Velocity", function(){
   it('decelerates if previous velocity was negative and direction positive', function(){
     var old_state = {
       direction: 1,
-      velocity: -2
+      velocity: -2,
+      position: 0
     };
 
     var new_state = {
       direction: 1,
       velocity: -1,
+      position: 0
     };
 
     events.pub('direction_chosen', old_state);

@@ -3,7 +3,8 @@ window.linel.Position = function(events){
     var new_position = old_state.position + old_state.velocity;
     events.pub('position_calculated', {
       position: new_position,
-      velocity: old_state.velocity
+      velocity: old_state.velocity,
+      direction: old_state.direction
     });
   };
 

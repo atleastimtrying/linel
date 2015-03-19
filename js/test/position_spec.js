@@ -12,12 +12,14 @@ describe("position", function(){
   it('calculates_position if position negative and velocity negative', function(){
     var old_state = {
       position: -1,
-      velocity: -3
+      velocity: -3,
+      direction: 1
     };
 
     var new_state = {
       position: -4,
-      velocity: -3
+      velocity: -3,
+      direction: 1
     };
 
     events.pub('environment_applied', old_state);
@@ -27,12 +29,14 @@ describe("position", function(){
   it('calculates_position if position negative and velocity positive', function(){
     var old_state = {
       position: -1,
-      velocity: 5
+      velocity: 5,
+      direction: 1
     };
 
     var new_state = {
       position: 4,
-      velocity: 5
+      velocity: 5,
+      direction: 1
     };
 
     events.pub('environment_applied', old_state);
@@ -42,12 +46,14 @@ describe("position", function(){
   it('calculates_position if position positive and velocity positive', function(){
     var old_state = {
       position: 56,
-      velocity: 5
+      velocity: 5,
+      direction: 1
     };
 
     var new_state = {
       position: 61,
-      velocity: 5
+      velocity: 5,
+      direction: 1
     };
 
     events.pub('environment_applied', old_state);
@@ -57,12 +63,14 @@ describe("position", function(){
   it('calculates_position if position positive and velocity negative', function(){
     var old_state = {
       position: 1,
-      velocity: -3
+      velocity: -3,
+      direction: 1
     };
 
     var new_state = {
       position: -2,
-      velocity: -3
+      velocity: -3,
+      direction: 1
     };
 
     events.pub('environment_applied', old_state);

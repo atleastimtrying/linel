@@ -12,6 +12,7 @@
 
     var publish = function(name, options){
       if(data[name]){
+        console.log(name, options);
         data[name].forEach(function(fn){
           fn(options);
         });
