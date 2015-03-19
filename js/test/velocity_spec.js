@@ -89,4 +89,71 @@ describe("Velocity", function(){
     expect(velocity_spy).toHaveBeenCalledWith(new_state);
   });
 
+  it('stays below a limit of 10', function(){
+    var old_state = {
+      direction: 1,
+      velocity: 10,
+      position: 0
+    };
+
+    var new_state = {
+      direction: 1,
+      velocity: 10,
+      position: 0
+    };
+
+    events.pub('direction_chosen', old_state);
+    expect(velocity_spy).toHaveBeenCalledWith(new_state);
+  });
+
+  it('stays above a limit of -10', function(){
+    var old_state = {
+      direction: -1,
+      velocity: -10,
+      position: 0
+    };
+
+    var new_state = {
+      direction: -1,
+      velocity: -10,
+      position: 0
+    };
+
+    events.pub('direction_chosen', old_state);
+    expect(velocity_spy).toHaveBeenCalledWith(new_state);
+  });
+
+  it('can sped up from -10', function(){
+    var old_state = {
+      direction: 1,
+      velocity: -10,
+      position: 0
+    };
+
+    var new_state = {
+      direction: 1,
+      velocity: -9,
+      position: 0
+    };
+
+    events.pub('direction_chosen', old_state);
+    expect(velocity_spy).toHaveBeenCalledWith(new_state);
+  });
+
+  it('can sped up from 10', function(){
+    var old_state = {
+      direction: -1,
+      velocity: 10,
+      position: 0
+    };
+
+    var new_state = {
+      direction: -1,
+      velocity: 9,
+      position: 0
+    };
+
+    events.pub('direction_chosen', old_state);
+    expect(velocity_spy).toHaveBeenCalledWith(new_state);
+  });
 });

@@ -13,5 +13,5 @@ window.linel.Direction = function(events){
   };
 
   events.sub('input_changed', update_input_direction);
-  events.sub('continue_game', apply_direction);
+  events.sub('delay_applied', apply_direction);
 };

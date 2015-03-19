@@ -9,9 +9,7 @@ window.linel.GameState = function(events){
     }
 
     if(old_state.position > 0 || old_state.position < 100){
-      setTimeout(function(){
-        events.pub('continue_game', old_state);
-      }, 50);
+      events.pub('continue_game', old_state);
     }
   };
 

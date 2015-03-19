@@ -7,6 +7,7 @@ window.linel.World = function(){
   var position = new window.linel.Position(events);
   var render = new window.linel.Render(events, document.getElementById('linel'));
   var game_state = new window.linel.GameState(events);
+  var delay = new window.linel.Delay(events);
   var linel = {
     direction: 0,
     velocity: 0,

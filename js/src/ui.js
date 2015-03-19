@@ -1,5 +1,5 @@
 window.linel.UI = function(events){
-  window.addEventListener('keydown', function(event){
+  window.addEventListener('keyup', function(event){
     var direction = 1;
     if(event.keyCode === 37){
       direction = -1;

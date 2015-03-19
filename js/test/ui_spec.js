@@ -4,7 +4,7 @@ describe('ui', function(){
     var key_event = document.createEvent('Events');
     key_event.keyCode = keyCode;
     key_event.which - keyCode;
-    key_event.initEvent('keydown', true, true);
+    key_event.initEvent('keyup', true, true);
     window.dispatchEvent(key_event);
   };
 

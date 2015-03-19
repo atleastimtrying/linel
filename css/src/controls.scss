@@ -1,0 +1,15 @@
+button{
+  display: block;
+  padding: 4em;
+  width: auto;
+  background: #eee;
+  border: 0;
+}
+
+.controls{
+  font-size:0;
+  button{
+    display:inline-block;
+    width: 50%;
+  }
+}
