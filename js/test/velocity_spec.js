@@ -13,7 +13,8 @@ describe("Velocity", function(){
     var old_state = {
       direction: 1,
       velocity: 1,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -24,13 +25,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: 1,
       velocity: 1,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: 1,
-      velocity: 2,
-      position: 0
+      velocity: 1.02,
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -42,13 +45,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: -1,
       velocity: 2,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: -1,
-      velocity: 1,
-      position: 0
+      velocity: 1.98,
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -59,13 +64,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: -1,
       velocity: -1,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: -1,
-      velocity: -2,
-      position: 0
+      velocity: -1.02,
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -76,13 +83,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: 1,
       velocity: -2,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: 1,
-      velocity: -1,
-      position: 0
+      velocity: -1.98,
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -93,13 +102,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: 1,
       velocity: 10,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: 1,
       velocity: 10,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -110,13 +121,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: -1,
       velocity: -10,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: -1,
       velocity: -10,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -127,13 +140,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: 1,
       velocity: -10,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: 1,
-      velocity: -9,
-      position: 0
+      velocity: -9.98,
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);
@@ -144,13 +159,15 @@ describe("Velocity", function(){
     var old_state = {
       direction: -1,
       velocity: 10,
-      position: 0
+      position: 0,
+      course_length: 100
     };
 
     var new_state = {
       direction: -1,
-      velocity: 9,
-      position: 0
+      velocity: 9.98,
+      position: 0,
+      course_length: 100
     };
 
     events.pub('direction_chosen', old_state);

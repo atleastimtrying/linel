@@ -1,6 +1,6 @@
 window.linel.Render = function(events, dom_element){
   var update_dom = function(old_state){
-    dom_element.style.strokeDashoffset = "" + old_state.position;
+    dom_element.style.strokeDashoffset = "-" + Math.round(old_state.position);
     return old_state;
   };
 

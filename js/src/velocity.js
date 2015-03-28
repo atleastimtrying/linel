@@ -8,9 +8,9 @@ window.linel.Velocity = function(events){
   };
 
   var calculate_velocity = function(old_state){
-    var velocity = old_state.velocity
+    var velocity = old_state.velocity;
     if(in_range(old_state)){
-      velocity += old_state.direction;
+      velocity += (old_state.direction * 0.02);
     }
     return velocity;
   };
@@ -20,7 +20,8 @@ window.linel.Velocity = function(events){
     return {
       direction: old_state.direction,
       velocity: velocity,
-      position: old_state.position
+      position: old_state.position,
+      course_length: old_state.course_length
     };
   };
 

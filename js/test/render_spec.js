@@ -20,6 +20,6 @@ describe('render', function(){
       position: 55
     };
     events.pub('position_calculated', old_state);
-    expect(dom_element.style.strokeDashoffset).toEqual("55px");
+    expect(dom_element.style.strokeDashoffset).toEqual("-55px");
   });
 });

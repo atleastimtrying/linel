@@ -9,68 +9,38 @@ describe("position", function(){
     events.sub('position_calculated', stub.position_calculated);
   });
 
-  it('calculates_position if position negative and velocity negative', function(){
-    var old_state = {
-      position: -1,
-      velocity: -3,
-      direction: 1
-    };
-
-    var new_state = {
-      position: -4,
-      velocity: -3,
-      direction: 1
-    };
-
-    events.pub('environment_applied', old_state);
-    expect(position_spy).toHaveBeenCalledWith(new_state);
-  });
-
-  it('calculates_position if position negative and velocity positive', function(){
-    var old_state = {
-      position: -1,
-      velocity: 5,
-      direction: 1
-    };
-
-    var new_state = {
-      position: 4,
-      velocity: 5,
-      direction: 1
-    };
-
-    events.pub('environment_applied', old_state);
-    expect(position_spy).toHaveBeenCalledWith(new_state);
-  });
-
-  it('calculates_position if position positive and velocity positive', function(){
+  it('calculates_position if velocity positive', function(){
     var old_state = {
       position: 56,
       velocity: 5,
-      direction: 1
+      direction: 1,
+      course_length: 100
     };
 
     var new_state = {
       position: 61,
       velocity: 5,
-      direction: 1
+      direction: 1,
+      course_length: 100
     };
 
     events.pub('environment_applied', old_state);
     expect(position_spy).toHaveBeenCalledWith(new_state);
   });
 
-  it('calculates_position if position positive and velocity negative', function(){
+  it('calculates_position if velocity negative', function(){
     var old_state = {
-      position: 1,
+      position: 10,
       velocity: -3,
-      direction: 1
+      direction: 1,
+      course_length: 100
     };
 
     var new_state = {
-      position: -2,
+      position: 7,
       velocity: -3,
-      direction: 1
+      direction: 1,
+      course_length: 100
     };
 
     events.pub('environment_applied', old_state);
