@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    include partials/header.jade
+  body
+
+    .editor
+      svg
+          path.path
+          path.pre_path
+          circle.indicator(cx="10" cy="10" r="0")
+
+      .path_display
+
+    script(src='linel.js')
+    script.
+      window.addEventListener('load', function(){ new window.linel.Editor(); });
