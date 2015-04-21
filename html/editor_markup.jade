@@ -1,0 +1,53 @@
+.display
+  p SVG HERE
+.json_display
+  p JSON HERE
+.controls
+  .path_points
+    table
+      tr
+        th id
+        th x
+        th y
+        th delete
+        th edit
+
+      tr(id="point_0")
+        td 0
+        td 0
+        td 0
+        td
+          button.delete delete
+        td
+          button.edit edit
+
+      tr(id="point_1")
+        td 1
+        td 1
+        td 1
+        td
+          button.delete delete
+        td
+          button.edit edit
+
+      tr(id="point_2")
+        td 2
+        td 2
+        td 2
+        td
+          button.delete delete
+        td
+          button.edit edit
+
+      tr.editing(id="point_3")
+        td 3
+        td
+          input(value="3")
+        td
+          input(value="3")
+        td
+          button.delete delete
+        td
+          button.save save
+
+  .slowdown_regions

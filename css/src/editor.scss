@@ -1,19 +1,33 @@
 .editor{
+  position:relative;
+  max-width:700px;
+  padding-top:400px;
+  margin: 0 auto;
+  .input,
   svg{
-      width:300px;
-      height:100px;
-      background:#ccc;
+    width:100%;
+    height:400px;
+    top:0;
+    left:0;
+    background:rgba(200, 0,0,0.1);
+    position:absolute;
   }
+  .input{
+    z-index:10;
+  }
+
   path{
-      fill:none;
-      stroke-width: 3px;
-      stroke: black;
+    fill:none;
+    stroke-width: 3px;
+    stroke: black;
   }
+
   path.pre_path{
-      stroke:#aaa;
+    stroke:#aaa;
   }
+
   circle.indicator{
-      stroke:none;
-      fill:yellow;
+    stroke:none;
+    fill:yellow;
   }
 }
