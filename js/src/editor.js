@@ -103,6 +103,28 @@ window.linel.Editor = function(){
     }
   });
 
+  var AddPoint = React.createClass({displayName: "AddPoint",
+    findLastPoint: function(){
+      if(this.props.points.length){
+        return this.props.points[this.props.points.length - 1];
+      }else{
+        return {x: 20, y: 20};
+      }
+    },
+    emitPoint: function(){
+      var last_point = this.findLastPoint();
+      events.pub('create', {
+        key: Date.now(),
+        x: last_point.x + 20,
+        y: last_point.y,
+        editing: false
+      });
+    },
+    render: function(){
+      return(React.createElement("button", {onClick: this.emitPoint}, "Add Point"));
+    }
+  });
+
   var PointsDisplay = React.createClass({displayName: "PointsDisplay",
     render: function(){
       var points = this.props.points.map(function(point){
@@ -112,14 +134,17 @@ window.linel.Editor = function(){
       }, this);
 
       return(
-        React.createElement("table", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, "x"), 
-            React.createElement("th", null, "y"), 
-            React.createElement("th", null), 
-            React.createElement("th", null)
+        React.createElement("div", null, 
+          React.createElement("table", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, "x"), 
+              React.createElement("th", null, "y"), 
+              React.createElement("th", null), 
+              React.createElement("th", null)
+            ), 
+            points
           ), 
-          points
+          React.createElement(AddPoint, {points: this.props.points})
         )
       );
     }
