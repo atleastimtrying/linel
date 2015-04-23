@@ -40,10 +40,14 @@ window.linel.Editor = function(){
     }
   });
 
-  var Controls = React.createClass({displayName: "Controls",
+  var JSONDisplay = React.createClass({displayName: "JSONDisplay",
+    stateToJSON: function(){
+      return JSON.stringify(this.props.state);
+    },
+
     render: function(){
       return(
-        React.createElement("div", {className: "controls"})
+        React.createElement("textarea", {value: this.stateToJSON()})
       );
     }
   });
@@ -66,7 +70,6 @@ window.linel.Editor = function(){
       events.pub('update', this.props.point);
     },
     cancel: function(){
-      console.log(this.p, this.props.point);
       events.pub('update', this.p);
     },
     get_ref_int: function(name){
@@ -163,7 +166,7 @@ window.linel.Editor = function(){
       React.createElement("div", null, 
         React.createElement(Input, null), 
         React.createElement(Display, {points: this.state.points}), 
-        React.createElement(Controls, {points: this.state.points}), 
+        React.createElement(JSONDisplay, {state: this.state}), 
         React.createElement(PointsDisplay, {points: this.state.points})
       )
       );
