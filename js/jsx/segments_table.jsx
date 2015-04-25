@@ -12,6 +12,7 @@ var SegmentsTable = React.createClass({
             <th>colour</th>
             <th>start</th>
             <th>length</th>
+            <th>modifier</th>
             <th></th>
             <th></th>
           </tr>

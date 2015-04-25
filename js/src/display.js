@@ -22,7 +22,7 @@ var Display = React.createClass({displayName: "Display",
       strokeDasharray: segment.length +"px 10000000px",
       strokeDashoffset: - segment.start + "px",
       strokeWidth: 9
-    }
+    };
   },
 
   render: function(){
