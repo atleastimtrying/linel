@@ -1,6 +1,8 @@
 path{
   fill: none;
+  stroke-width: 2px;
   stroke-linecap: round;
+  stroke: white;
   &#container{
     stroke: #ccc;
     stroke-width: 7px;
@@ -10,5 +12,8 @@ path{
     stroke-width: 3px;
     stroke-dasharray: 10px 900px;
     stroke-dashoffset: -1px;
+  }
+  &.pre_path{
+    stroke:#aaa;
   }
 }
