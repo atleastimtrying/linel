@@ -48,7 +48,7 @@ window.linel.Editor = function(){
     },
     render: function(){
       return(
-        React.createElement("div", {className: "editor"}, 
+        React.createElement("div", {className: "editor wrapper"}, 
           React.createElement("div", {className: "view"}, 
             React.createElement("div", {className: "svgContainer"}, 
               React.createElement(Input, null), 

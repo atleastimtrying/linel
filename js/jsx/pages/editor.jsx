@@ -48,8 +48,7 @@ window.linel.Editor = function(){
     },
     render: function(){
       return(
-        <div className="editor">
-          <EditorHeader level={this.state}/>
+        <div className="editor wrapper">
           <div className="view">
             <div className="svgContainer">
               <Input />
