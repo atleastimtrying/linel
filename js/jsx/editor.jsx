@@ -40,11 +40,16 @@ window.linel.Editor = function(){
       events.sub('update', this.update);
     },
     getInitialState: function(){
-      return {points: [], segments: []};
+      return {
+        title: 'new_level',
+        points: [],
+        segments: []
+      };
     },
     render: function(){
       return(
         <div className="editor">
+          <EditorHeader level={this.state}/>
           <div className="view">
             <div className="svgContainer">
               <Input />

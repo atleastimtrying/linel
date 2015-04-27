@@ -40,11 +40,16 @@ window.linel.Editor = function(){
       events.sub('update', this.update);
     },
     getInitialState: function(){
-      return {points: [], segments: []};
+      return {
+        title: 'new_level',
+        points: [],
+        segments: []
+      };
     },
     render: function(){
       return(
         React.createElement("div", {className: "editor"}, 
+          React.createElement(EditorHeader, {level: this.state}), 
           React.createElement("div", {className: "view"}, 
             React.createElement("div", {className: "svgContainer"}, 
               React.createElement(Input, null), 

@@ -1,0 +1,10 @@
+
+doctype html
+html
+  head
+    include partials/header.jade
+
+    script(src='linel.js')
+    script.
+      window.addEventListener('load', function(){ new window.linel.LevelSelect(); });
+  body
