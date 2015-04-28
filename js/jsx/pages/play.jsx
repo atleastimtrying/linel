@@ -1,7 +1,7 @@
 window.linel.Play = function(){
   var App = React.createClass({
     getInitialState: function(){
-      return({})
+      return({});
     },
     render: function(){
       return(

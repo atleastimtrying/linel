@@ -43,7 +43,8 @@ window.linel.Editor = function(){
       return {
         title: 'new_level',
         points: [],
-        segments: []
+        segments: [],
+        coins: []
       };
     },
     render: function(){
@@ -52,13 +53,14 @@ window.linel.Editor = function(){
           React.createElement("div", {className: "view"}, 
             React.createElement("div", {className: "svgContainer"}, 
               React.createElement(Input, null), 
-              React.createElement(Display, {points: this.state.points, segments: this.state.segments})
+              React.createElement(Display, {state: this.state})
             ), 
-            React.createElement(JSONDisplay, {state: this.state})
+            React.createElement(CoinsTable, {coins: this.state.coins})
           ), 
           React.createElement("div", {className: "aside"}, 
             React.createElement(PointsTable, {points: this.state.points}), 
-            React.createElement(SegmentsTable, {segments: this.state.segments})
+            React.createElement(SegmentsTable, {segments: this.state.segments}), 
+            React.createElement(JSONDisplay, {state: this.state})
           )
         )
       );

@@ -43,7 +43,8 @@ window.linel.Editor = function(){
       return {
         title: 'new_level',
         points: [],
-        segments: []
+        segments: [],
+        coins: []
       };
     },
     render: function(){
@@ -52,13 +53,14 @@ window.linel.Editor = function(){
           <div className="view">
             <div className="svgContainer">
               <Input />
-              <Display points={this.state.points} segments={this.state.segments}/>
+              <Display state={this.state} />
             </div>
-            <JSONDisplay state={this.state}/>
+            <CoinsTable coins={this.state.coins} />
           </div>
           <div className="aside">
             <PointsTable points={this.state.points} />
             <SegmentsTable segments={this.state.segments} />
+            <JSONDisplay state={this.state}/>
           </div>
         </div>
       );
