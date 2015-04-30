@@ -42,6 +42,8 @@ window.linel.Editor = function(){
     getInitialState: function(){
       return {
         title: 'new_level',
+        author: '',
+        difficulty: 1,
         points: [],
         segments: [],
         coins: []
@@ -49,18 +51,27 @@ window.linel.Editor = function(){
     },
     render: function(){
       return(
-        React.createElement("div", {className: "editor wrapper"}, 
-          React.createElement("div", {className: "view"}, 
-            React.createElement("div", {className: "svgContainer"}, 
-              React.createElement(Input, null), 
-              React.createElement(Display, {state: this.state})
-            ), 
-            React.createElement(CoinsTable, {coins: this.state.coins})
+        React.createElement("div", null, 
+          React.createElement("div", null, 
+            React.createElement(TitleEditor, {title: this.state.title}), 
+            React.createElement(AuthorEditor, {author: this.state.author}), 
+            React.createElement(DifficultyEditor, {difficulty: this.state.difficulty}), 
+            React.createElement(Save, {state: this.state}), 
+            React.createElement("button", {className: "negative"}, "quit")
           ), 
-          React.createElement("div", {className: "aside"}, 
-            React.createElement(PointsTable, {points: this.state.points}), 
-            React.createElement(SegmentsTable, {segments: this.state.segments}), 
-            React.createElement(JSONDisplay, {state: this.state})
+          React.createElement("div", {className: "editor wrapper"}, 
+            React.createElement("div", {className: "view"}, 
+              React.createElement("div", {className: "svgContainer"}, 
+                React.createElement(Input, null), 
+                React.createElement(Display, {state: this.state})
+              ), 
+              React.createElement(CoinsTable, {coins: this.state.coins})
+            ), 
+            React.createElement("div", {className: "aside"}, 
+              React.createElement(PointsTable, {points: this.state.points}), 
+              React.createElement(SegmentsTable, {segments: this.state.segments}), 
+              React.createElement(JSONDisplay, {state: this.state})
+            )
           )
         )
       );

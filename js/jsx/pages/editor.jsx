@@ -42,6 +42,8 @@ window.linel.Editor = function(){
     getInitialState: function(){
       return {
         title: 'new_level',
+        author: '',
+        difficulty: 1,
         points: [],
         segments: [],
         coins: []
@@ -49,18 +51,27 @@ window.linel.Editor = function(){
     },
     render: function(){
       return(
-        <div className="editor wrapper">
-          <div className="view">
-            <div className="svgContainer">
-              <Input />
-              <Display state={this.state} />
-            </div>
-            <CoinsTable coins={this.state.coins} />
+        <div>
+          <div>
+            <TitleEditor title={this.state.title} />
+            <AuthorEditor author={this.state.author} />
+            <DifficultyEditor difficulty={this.state.difficulty} />
+            <Save state={this.state} />
+            <button className="negative">quit</button>
           </div>
-          <div className="aside">
-            <PointsTable points={this.state.points} />
-            <SegmentsTable segments={this.state.segments} />
-            <JSONDisplay state={this.state}/>
+          <div className="editor wrapper">
+            <div className="view">
+              <div className="svgContainer">
+                <Input />
+                <Display state={this.state} />
+              </div>
+              <CoinsTable coins={this.state.coins} />
+            </div>
+            <div className="aside">
+              <PointsTable points={this.state.points} />
+              <SegmentsTable segments={this.state.segments} />
+              <JSONDisplay state={this.state}/>
+            </div>
           </div>
         </div>
       );
