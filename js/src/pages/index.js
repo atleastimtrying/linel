@@ -52,7 +52,7 @@ window.linel.Index = function(){
              React.createElement("p", null, "A one dimensional adventure game!")
           ), 
           React.createElement("div", {className: "aside"}, 
-            React.createElement("a", {href: "/edit.html"}, "Create a new level!"), 
+            React.createElement("a", {href: "/edit.html", className: "btn positive"}, "Create a new level!"), 
             React.createElement("div", {className: "level_select"}, 
               level_menu_items
             )

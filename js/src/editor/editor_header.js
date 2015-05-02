@@ -3,11 +3,11 @@ var EditorHeader = React.createClass({displayName: "EditorHeader",
     var state = this.props.state;
     return(
       React.createElement("header", null, 
-        React.createElement(TitleEditor, {title: state.title}), 
-        React.createElement(AuthorEditor, {author: state.author}), 
-        React.createElement(DifficultyEditor, {difficulty: state.difficulty}), 
+        React.createElement(AttributeEditor, {attribute: "title", value: state.title}), 
+        React.createElement(AttributeEditor, {attribute: "author", value: state.author}), 
+        React.createElement(AttributeEditor, {attribute: "difficulty", value: state.difficulty, type: "number"}), 
         React.createElement(Save, {state: state}), 
-        React.createElement("button", {className: "negative"}, "quit")
+        React.createElement("a", {href: "/", className: "negative btn"}, "quit")
       )
     );
   }

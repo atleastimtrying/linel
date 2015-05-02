@@ -8,8 +8,8 @@ var LevelMenuItem = React.createClass({
           <li>difficulty: {level.difficulty}</li>
           <li>coins: {level.coins.length || "0"}</li>
         </ul>
-        <a href={ "edit.html#" + level.id }>Edit</a>
-        <a href={ "play.html#" + level.id }>Play</a>
+        <a href={ "edit.html#" + level.id } className="btn">Edit</a>
+        <a href={ "play.html#" + level.id } className="btn">Play</a>
       </div>
     );
   }

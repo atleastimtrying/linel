@@ -8,8 +8,8 @@ var LevelMenuItem = React.createClass({displayName: "LevelMenuItem",
           React.createElement("li", null, "difficulty: ", level.difficulty), 
           React.createElement("li", null, "coins: ", level.coins.length || "0")
         ), 
-        React.createElement("a", {href:  "edit.html#" + level.id}, "Edit"), 
-        React.createElement("a", {href:  "play.html#" + level.id}, "Play")
+        React.createElement("a", {href:  "edit.html#" + level.id, className: "btn"}, "Edit"), 
+        React.createElement("a", {href:  "play.html#" + level.id, className: "btn"}, "Play")
       )
     );
   }

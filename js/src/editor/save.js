@@ -4,7 +4,7 @@ var Save = React.createClass({displayName: "Save",
   },
   render: function(){
     return(
-      React.createElement("button", {className: "positive", onClick: this.save}, "Save")
+      React.createElement("button", {className: "positive", onClick: this.save},  this.props.state.id ? 'Update' : 'Save')
     );
   }
 });

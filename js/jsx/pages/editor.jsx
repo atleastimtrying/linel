@@ -38,7 +38,13 @@ window.linel.Editor = function(){
     },
 
     create_level: function(){
-      console.log("create isn't made yet");
+      var levels = this.get_all_levels();
+      var highest_level = levels.reduce(function(previous, level){
+        return Math.max(previous, parseInt(level.id));
+      }, 0);
+      this.state.id = highest_level + 1;
+      levels.push(this.state);
+      this.set_levels(levels);
     },
 
     set_levels: function(levels){
@@ -64,8 +70,8 @@ window.linel.Editor = function(){
       }
     },
 
-    title: function(title){
-      this.state.title = title;
+    attribute_update: function(reference){
+      this.state[reference.attribute] = reference.value;
       this.setState(this.state);
     },
 
@@ -93,7 +99,7 @@ window.linel.Editor = function(){
       events.sub('create', this.create);
       events.sub('edit', this.edit);
       events.sub('update', this.update);
-      events.sub('title', this.title);
+      events.sub('attribute_update', this.attribute_update);
       events.sub('save', this.save);
     },
 

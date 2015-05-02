@@ -1,0 +1,19 @@
+.level_menu_item{
+  border: 1px solid #ccc;
+  padding:0.5em;
+  margin-bottom:0.5em;
+  h2 span{
+    font-weight:lighter;
+    font-size:1.5em;
+    margin-bottom:1em;
+  }
+  ul{
+    padding-left:1em;
+    li{
+      margin-bottom:0.5em;
+    }
+  }
+  .btn{
+    margin-right:0.5em;
+  }
+}

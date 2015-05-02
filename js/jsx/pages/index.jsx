@@ -52,7 +52,7 @@ window.linel.Index = function(){
              <p>A one dimensional adventure game!</p>
           </div>
           <div className="aside">
-            <a href="/edit.html">Create a new level!</a>
+            <a href="/edit.html" className="btn positive">Create a new level!</a>
             <div className="level_select">
               {level_menu_items}
             </div>
