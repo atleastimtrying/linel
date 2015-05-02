@@ -33,9 +33,59 @@ window.linel.Editor = function(){
       this.setState(this.state);
     },
 
+    get_all_levels: function(){
+      return JSON.parse(localStorage.getItem('linel_levels')) || [];
+    },
+
+    create_level: function(){
+      console.log("create isn't made yet");
+    },
+
+    set_levels: function(levels){
+      localStorage.setItem('linel_levels', JSON.stringify(levels));
+    },
+
+    update_level: function(){
+      var new_levels = this.get_all_levels().map(function(level){
+        if(level.id === this.state.id){
+          return this.state;
+        }else{
+          return level;
+        }
+      }, this);
+      this.set_levels(new_levels);
+    },
+
+    save: function(){
+      if(this.state.id === undefined){
+        this.create_level();
+      }else{
+        this.update_level();
+      }
+    },
+
     title: function(title){
       this.state.title = title;
       this.setState(this.state);
+    },
+
+    starter: function(){
+      return({
+        title: 'new_level',
+        author: '',
+        difficulty: 1,
+        points: [],
+        segments: [],
+        coins: []
+      });
+    },
+
+    local_get: function(){
+      var id = parseInt(window.location.hash.substr(1));
+      var levels = this.get_all_levels();
+      return levels.filter(function(level){
+        return level.id === id;
+      })[0];
     },
 
     componentDidMount: function(){
@@ -44,17 +94,13 @@ window.linel.Editor = function(){
       events.sub('edit', this.edit);
       events.sub('update', this.update);
       events.sub('title', this.title);
+      events.sub('save', this.save);
     },
+
     getInitialState: function(){
-      return {
-        title: 'new_level',
-        author: '',
-        difficulty: 1,
-        points: [],
-        segments: [],
-        coins: []
-      };
+      return this.local_get() || this.starter();
     },
+
     render: function(){
       return(
         <div>

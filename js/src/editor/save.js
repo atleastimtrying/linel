@@ -1,6 +1,6 @@
 var Save = React.createClass({displayName: "Save",
   save: function(){
-    console.log('save');
+    events.pub('save');
   },
   render: function(){
     return(
