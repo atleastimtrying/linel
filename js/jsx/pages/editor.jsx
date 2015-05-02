@@ -33,11 +33,17 @@ window.linel.Editor = function(){
       this.setState(this.state);
     },
 
+    title: function(title){
+      this.state.title = title;
+      this.setState(this.state);
+    },
+
     componentDidMount: function(){
       events.sub('destroy', this.destroy);
       events.sub('create', this.create);
       events.sub('edit', this.edit);
       events.sub('update', this.update);
+      events.sub('title', this.title);
     },
     getInitialState: function(){
       return {
@@ -52,13 +58,7 @@ window.linel.Editor = function(){
     render: function(){
       return(
         <div>
-          <div>
-            <TitleEditor title={this.state.title} />
-            <AuthorEditor author={this.state.author} />
-            <DifficultyEditor difficulty={this.state.difficulty} />
-            <Save state={this.state} />
-            <button className="negative">quit</button>
-          </div>
+          <EditorHeader state={this.state} />
           <div className="editor wrapper">
             <div className="view">
               <div className="svgContainer">

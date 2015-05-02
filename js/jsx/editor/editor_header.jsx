@@ -1,8 +1,13 @@
 var EditorHeader = React.createClass({
   render: function(){
+    var state = this.props.state;
     return(
       <header>
-        <h1>{this.props.level.title}</h1>
+        <TitleEditor title={state.title} />
+        <AuthorEditor author={state.author} />
+        <DifficultyEditor difficulty={state.difficulty} />
+        <Save state={state} />
+        <button className="negative">quit</button>
       </header>
     );
   }

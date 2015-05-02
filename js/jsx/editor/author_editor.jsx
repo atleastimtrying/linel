@@ -4,9 +4,7 @@ var AuthorEditor = React.createClass({
   },
   render: function(){
     return(
-      <span>
-        <input type="text" value={this.props.author} ref="input" onChange={this.update} />
-      </span>
+      <input type="text" value={this.props.author} ref="input" onChange={this.update} />
     );
   }
 });

@@ -1,12 +1,10 @@
 var TitleEditor = React.createClass({
   update: function(){
-    console.log(this.refs.input.getDOMNote().value);
+    events.pub('title', this.refs.input.getDOMNode().value);
   },
   render: function(){
     return(
-      <span>
-        <input type="text" value={this.props.title} ref="input" onChange={this.update} />
-      </span>
+      <input type="text" value={this.props.title} ref="input" onChange={this.update} />
     );
   }
 });

@@ -33,11 +33,17 @@ window.linel.Editor = function(){
       this.setState(this.state);
     },
 
+    title: function(title){
+      this.state.title = title;
+      this.setState(this.state);
+    },
+
     componentDidMount: function(){
       events.sub('destroy', this.destroy);
       events.sub('create', this.create);
       events.sub('edit', this.edit);
       events.sub('update', this.update);
+      events.sub('title', this.title);
     },
     getInitialState: function(){
       return {
@@ -52,13 +58,7 @@ window.linel.Editor = function(){
     render: function(){
       return(
         React.createElement("div", null, 
-          React.createElement("div", null, 
-            React.createElement(TitleEditor, {title: this.state.title}), 
-            React.createElement(AuthorEditor, {author: this.state.author}), 
-            React.createElement(DifficultyEditor, {difficulty: this.state.difficulty}), 
-            React.createElement(Save, {state: this.state}), 
-            React.createElement("button", {className: "negative"}, "quit")
-          ), 
+          React.createElement(EditorHeader, {state: this.state}), 
           React.createElement("div", {className: "editor wrapper"}, 
             React.createElement("div", {className: "view"}, 
               React.createElement("div", {className: "svgContainer"}, 

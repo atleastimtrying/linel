@@ -4,9 +4,7 @@ var DifficultyEditor = React.createClass({displayName: "DifficultyEditor",
   },
   render: function(){
     return(
-      React.createElement("span", null, 
-        React.createElement("input", {type: "text", value: this.props.difficulty, ref: "input", onChange: this.update})
-      )
+      React.createElement("input", {type: "text", value: this.props.difficulty, ref: "input", onChange: this.update})
     );
   }
 });

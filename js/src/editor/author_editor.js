@@ -4,9 +4,7 @@ var AuthorEditor = React.createClass({displayName: "AuthorEditor",
   },
   render: function(){
     return(
-      React.createElement("span", null, 
-        React.createElement("input", {type: "text", value: this.props.author, ref: "input", onChange: this.update})
-      )
+      React.createElement("input", {type: "text", value: this.props.author, ref: "input", onChange: this.update})
     );
   }
 });
