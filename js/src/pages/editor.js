@@ -117,10 +117,10 @@ window.linel.Editor = function(){
                 React.createElement(Input, null), 
                 React.createElement(Display, {state: this.state})
               ), 
-              React.createElement(CoinsTable, {coins: this.state.coins})
+              React.createElement(PointsTable, {points: this.state.points})
             ), 
             React.createElement("div", {className: "aside"}, 
-              React.createElement(PointsTable, {points: this.state.points}), 
+              React.createElement(CoinsTable, {coins: this.state.coins}), 
               React.createElement(SegmentsTable, {segments: this.state.segments}), 
               React.createElement(JSONDisplay, {state: this.state})
             )

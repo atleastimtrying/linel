@@ -6,19 +6,24 @@ var PointsTable = React.createClass({displayName: "PointsTable",
       );
     }, this);
     return(
-      React.createElement("div", null, 
+      React.createElement("div", {className: "table_editor"}, 
+        React.createElement("h2", null, "Points"), 
         React.createElement("table", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, "x"), 
-            React.createElement("th", null, "y"), 
-            React.createElement("th", null, "ax"), 
-            React.createElement("th", null, "ay"), 
-            React.createElement("th", null, "bx"), 
-            React.createElement("th", null, "by"), 
-            React.createElement("th", null), 
-            React.createElement("th", null)
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, "x"), 
+              React.createElement("th", null, "y"), 
+              React.createElement("th", null, "ax"), 
+              React.createElement("th", null, "ay"), 
+              React.createElement("th", null, "bx"), 
+              React.createElement("th", null, "by"), 
+              React.createElement("th", null), 
+              React.createElement("th", null)
+            )
           ), 
-          points
+          React.createElement("tbody", null, 
+            points
+          )
         ), 
         React.createElement(AddPoint, {points: this.props.points})
       )

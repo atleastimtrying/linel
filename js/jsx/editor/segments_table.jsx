@@ -6,17 +6,22 @@ var SegmentsTable = React.createClass({
       );
     }, this);
     return(
-      <div>
+      <div className="table_editor">
+        <h2>Segments</h2>
         <table>
-          <tr>
-            <th>colour</th>
-            <th>start</th>
-            <th>length</th>
-            <th>modifier</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {segments}
+          <thead>
+            <tr>
+              <th>colour</th>
+              <th>start</th>
+              <th>length</th>
+              <th>modifier</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {segments}
+          </tbody>
         </table>
         <AddSegment segments={this.props.segments}/>
       </div>

@@ -1,16 +1,31 @@
 .level_menu_item{
-  border: 1px solid #ccc;
+  background: #f5f5f5;
   padding:0.5em;
-  margin-bottom:0.5em;
-  h2 span{
-    font-weight:lighter;
-    font-size:1.5em;
+  margin-top:1em;
+  border-radius:2px;
+  h2{
     margin-bottom:1em;
+    span{
+      font-weight:lighter;
+      font-size:1.5em;
+    }
   }
+
   ul{
     padding-left:1em;
     li{
       margin-bottom:0.5em;
+    }
+  }
+  svg{
+    height: 400px;
+    width: 800px;
+    background:#333;
+    float: right;
+    zoom:0.3;
+    path{
+      stroke:white;
+      stroke-width:5px;
     }
   }
   .btn{

@@ -42,7 +42,7 @@ window.linel.Index = function(){
 
     render: function(){
       var level_menu_items = this.state.levels.map(function(level){
-        return(React.createElement(LevelMenuItem, {level: level}));
+        return(React.createElement(LevelMenuItem, {key: level.id, level: level}));
       });
 
       return(

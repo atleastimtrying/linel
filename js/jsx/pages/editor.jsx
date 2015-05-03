@@ -117,10 +117,10 @@ window.linel.Editor = function(){
                 <Input />
                 <Display state={this.state} />
               </div>
-              <CoinsTable coins={this.state.coins} />
+              <PointsTable points={this.state.points} />
             </div>
             <div className="aside">
-              <PointsTable points={this.state.points} />
+              <CoinsTable coins={this.state.coins} />
               <SegmentsTable segments={this.state.segments} />
               <JSONDisplay state={this.state}/>
             </div>

@@ -6,19 +6,24 @@ var PointsTable = React.createClass({
       );
     }, this);
     return(
-      <div>
+      <div className="table_editor">
+        <h2>Points</h2>
         <table>
-          <tr>
-            <th>x</th>
-            <th>y</th>
-            <th>ax</th>
-            <th>ay</th>
-            <th>bx</th>
-            <th>by</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {points}
+          <thead>
+            <tr>
+              <th>x</th>
+              <th>y</th>
+              <th>ax</th>
+              <th>ay</th>
+              <th>bx</th>
+              <th>by</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {points}
+          </tbody>
         </table>
         <AddPoint points={this.props.points}/>
       </div>

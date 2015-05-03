@@ -1,0 +1,31 @@
+a.btn,
+button{
+  display:inline-block;
+  padding:0.5em;
+  background:#ccc;
+  color:#999;
+  border: 1px solid #999;
+  cursor:pointer;
+  border-radius:2px;
+  text-decoration:none;
+  transition:background 0.25s ease-out;
+  &.negative{
+    background:#c99;
+    border: 1px solid #633;
+    color:white;
+    &:hover{
+      background:#633;
+      border: 1px solid #300;
+    }
+  }
+  &.positive{
+    background:#9C9;
+    border: 1px solid #363;
+    color:white;
+    &:hover{
+      background:#363;
+      border: 1px solid #030;
+    }
+  }
+}
+

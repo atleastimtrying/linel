@@ -6,14 +6,19 @@ var CoinsTable = React.createClass({displayName: "CoinsTable",
       );
     }, this);
     return(
-      React.createElement("div", null, 
+      React.createElement("div", {className: "table_editor"}, 
+        React.createElement("h2", null, "Coins"), 
         React.createElement("table", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, "location"), 
-            React.createElement("th", null), 
-            React.createElement("th", null)
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, "location"), 
+              React.createElement("th", null), 
+              React.createElement("th", null)
+            )
           ), 
-          coins
+          React.createElement("tbody", null, 
+            coins
+          )
         ), 
         React.createElement(AddCoin, {coins: this.props.coins})
       )

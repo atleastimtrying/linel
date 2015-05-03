@@ -6,14 +6,19 @@ var CoinsTable = React.createClass({
       );
     }, this);
     return(
-      <div>
+      <div className="table_editor">
+        <h2>Coins</h2>
         <table>
-          <tr>
-            <th>location</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {coins}
+          <thead>
+            <tr>
+              <th>location</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {coins}
+          </tbody>
         </table>
         <AddCoin coins={this.props.coins}/>
       </div>
