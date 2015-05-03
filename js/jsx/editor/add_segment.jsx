@@ -3,7 +3,7 @@ var AddSegment = React.createClass({
     if(this.props.segments.length){
       return this.props.segments[this.props.segments.length - 1];
     }else{
-      return { colour: 'green', start: 0, length: 30, modifier: -1};
+      return { colour: '#3366DD', start: 0, length: 30, modifier: -1};
     }
   },
   emit: function(){

@@ -2,13 +2,16 @@ a.btn,
 button{
   display:inline-block;
   padding:0.5em;
-  background:#ccc;
-  color:#999;
-  border: 1px solid #999;
+  background:#3366CC;
+  color:white;
+  border: 1px solid #114499;
   cursor:pointer;
   border-radius:2px;
   text-decoration:none;
   transition:background 0.25s ease-out;
+  &:hover{
+    background:#2244AA;
+  }
   &.negative{
     background:#c99;
     border: 1px solid #633;
