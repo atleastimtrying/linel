@@ -1,3 +1,200 @@
 [
-  {"id": 0,"title":"Straight Line","author":"Anders","difficulty":1,"points":[{"key":1430561128295,"collection":"points","x":101,"y":191,"ax":101,"ay":191,"bx":101,"by":191,"editing":false},{"key":1430561130192,"collection":"points","x":632,"y":193,"ax":632,"ay":193,"bx":632,"by":193,"editing":false}],"segments":[],"coins":[{"key":1430561136527,"collection":"coins","location":274,"editing":false}]}
+  {"id": 0,"title":"Straight Line","author":"Anders","difficulty":1,"points":[{"key":1430561128295,"collection":"points","x":101,"y":191,"ax":101,"ay":191,"bx":101,"by":191,"editing":false},{"key":1430561130192,"collection":"points","x":632,"y":193,"ax":632,"ay":193,"bx":632,"by":193,"editing":false}],"segments":[],"coins":[{"key":1430561136527,"collection":"coins","location":274,"editing":false}]},
+  {
+  "title": "curly",
+  "author": "Anders",
+  "difficulty": 1,
+  "points": [
+    {
+      "key": 1430688829826,
+      "collection": "points",
+      "x": 40,
+      "y": 20,
+      "ax": 40,
+      "ay": 20,
+      "bx": 40,
+      "by": 20,
+      "editing": false
+    },
+    {
+      "key": 1430688832942,
+      "collection": "points",
+      "x": 358,
+      "y": 79,
+      "ax": 182,
+      "ay": 239,
+      "bx": 358,
+      "by": 79,
+      "editing": false
+    },
+    {
+      "key": 1430688838616,
+      "collection": "points",
+      "x": 599,
+      "y": 177,
+      "ax": 554,
+      "ay": 5,
+      "bx": 599,
+      "by": 177,
+      "editing": false
+    },
+    {
+      "key": 1430688843316,
+      "collection": "points",
+      "x": 470,
+      "y": 323,
+      "ax": 644,
+      "ay": 330,
+      "bx": 470,
+      "by": 323,
+      "editing": false
+    },
+    {
+      "key": 1430688846618,
+      "collection": "points",
+      "x": 383,
+      "y": 171,
+      "ax": 202,
+      "ay": 316,
+      "bx": 383,
+      "by": 171,
+      "editing": false
+    },
+    {
+      "key": 1430688851206,
+      "collection": "points",
+      "x": 497,
+      "y": 127,
+      "ax": 453,
+      "ay": 110,
+      "bx": 497,
+      "by": 127,
+      "editing": false
+    },
+    {
+      "key": 1430688857736,
+      "collection": "points",
+      "x": 550,
+      "y": 213,
+      "ax": 579,
+      "ay": 148,
+      "bx": 550,
+      "by": 213,
+      "editing": false
+    },
+    {
+      "key": 1430688861489,
+      "collection": "points",
+      "x": 484,
+      "y": 264,
+      "ax": 522,
+      "ay": 284,
+      "bx": 484,
+      "by": 264,
+      "editing": false
+    },
+    {
+      "key": 1430688864410,
+      "collection": "points",
+      "x": 423,
+      "y": 198,
+      "ax": 404,
+      "ay": 232,
+      "bx": 423,
+      "by": 198,
+      "editing": false
+    },
+    {
+      "key": 1430688868371,
+      "collection": "points",
+      "x": 488,
+      "y": 159,
+      "ax": 447,
+      "ay": 134,
+      "bx": 488,
+      "by": 159,
+      "editing": false
+    },
+    {
+      "key": 1430688871553,
+      "collection": "points",
+      "x": 501,
+      "y": 197,
+      "ax": 523,
+      "ay": 177,
+      "bx": 501,
+      "by": 197,
+      "editing": false
+    },
+    {
+      "key": 1430688874429,
+      "collection": "points",
+      "x": 477,
+      "y": 221,
+      "ax": 482,
+      "ay": 216,
+      "bx": 477,
+      "by": 221,
+      "editing": false
+    },
+    {
+      "key": 1430688880479,
+      "collection": "points",
+      "x": 449,
+      "y": 188,
+      "ax": 442,
+      "ay": 253,
+      "bx": 449,
+      "by": 188,
+      "editing": false
+    },
+    {
+      "key": 1430688884331,
+      "collection": "points",
+      "x": 476,
+      "y": 187,
+      "ax": 454,
+      "ay": 154,
+      "bx": 476,
+      "by": 187,
+      "editing": false
+    },
+    {
+      "key": 1430688890845,
+      "collection": "points",
+      "x": 466,
+      "y": 202,
+      "ax": 466,
+      "ay": 202,
+      "bx": 466,
+      "by": 202,
+      "editing": false
+    },
+    {
+      "key": 1430688891805,
+      "collection": "points",
+      "x": 459,
+      "y": 196,
+      "ax": 459,
+      "ay": 196,
+      "bx": 459,
+      "by": 196,
+      "editing": false
+    },
+    {
+      "key": 1430688893473,
+      "collection": "points",
+      "x": 465,
+      "y": 187,
+      "ax": 465,
+      "ay": 187,
+      "bx": 465,
+      "by": 187,
+      "editing": false
+    }
+  ],
+  "segments": [],
+  "coins": [],
+  "id": 1
+}
 ]

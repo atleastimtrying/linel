@@ -1,0 +1,17 @@
+.game_display{
+  path{
+    &.linel{
+      stroke:#3366CC;
+      stroke-width:5px;
+    }
+    &.container{
+      stroke: #666;
+      stroke-width:11px;
+    }
+    &.coin{
+      stroke-width: 11px;
+      stroke: yellow;
+      stroke-dasharray: 1px 10000000px;
+    }
+  }
+}

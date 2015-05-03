@@ -13,7 +13,7 @@ var LevelMenuItem = React.createClass({displayName: "LevelMenuItem",
     var level = this.props.level;
     var points_string = this.pointsToString(this.props.level.points);
     return(
-      React.createElement("div", {className: "level_menu_item", key: this.props.level.id}, 
+      React.createElement("div", {className: "level_menu_item"}, 
         React.createElement("svg", null, 
           React.createElement("path", {d: points_string})
         ), 

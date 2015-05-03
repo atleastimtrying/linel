@@ -1,4 +1,6 @@
 window.linel.Play = function(){
+  window.events = new window.linel.Events();
+
   var App = React.createClass({
     get_all_levels: function(){
       return JSON.parse(localStorage.getItem('linel_levels')) || [];
@@ -12,8 +14,27 @@ window.linel.Play = function(){
       })[0];
     },
 
+    start_linel: function(){
+      return({
+        position: 0,
+        length: 10,
+        coins: 0
+      });
+    },
+
+    componentDidMount: function(){
+      events.sub('increment_position', this.incrementPosition);
+    },
+
     getInitialState: function(){
-      return this.local_get();
+      var level = this.local_get();
+      level.linel = this.start_linel();
+      return level;
+    },
+
+    incrementPosition: function(position_modifier){
+      this.state.linel.position += (position_modifier * 2);
+      this.setState(this.state);
     },
 
     render: function(){
@@ -21,11 +42,13 @@ window.linel.Play = function(){
         <div className="play wrapper">
           <div className="view">
             <h1>{this.state.title}</h1>
-            <h2>Coins: 0 / {this.state.coins.length}</h2>
-            <Display state={this.state} />
+            <h2>Coins: {this.state.linel.coins} / {this.state.coins.length}</h2>
+            <GameDisplay state={this.state} />
+            <Controls />
           </div>
           <div className="aside">
             <a href="/index.html">Home</a>
+            <JSONDisplay state={this.state.linel} />
           </div>
         </div>
       );
