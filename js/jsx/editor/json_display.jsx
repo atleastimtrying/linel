@@ -5,7 +5,7 @@ var JSONDisplay = React.createClass({
 
   render: function(){
     return(
-      <textarea value={this.stateToJSON()}></textarea>
+      <textarea readOnly value={this.stateToJSON()}></textarea>
     );
   }
 });

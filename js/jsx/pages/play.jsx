@@ -23,6 +23,7 @@ window.linel.Play = function(){
     },
 
     componentDidMount: function(){
+      enter_fullscreen();
       events.sub('increment_position', this.incrementPosition);
     },
 
@@ -35,6 +36,19 @@ window.linel.Play = function(){
     incrementPosition: function(position_modifier){
       this.state.linel.position += (position_modifier * 2);
       this.setState(this.state);
+    },
+
+    enter_fullscreen: function(){
+      console.log('fullscreen?');
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
     },
 
     render: function(){

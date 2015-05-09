@@ -5,7 +5,7 @@ var JSONDisplay = React.createClass({displayName: "JSONDisplay",
 
   render: function(){
     return(
-      React.createElement("textarea", {value: this.stateToJSON()})
+      React.createElement("textarea", {readOnly: true, value: this.stateToJSON()})
     );
   }
 });
