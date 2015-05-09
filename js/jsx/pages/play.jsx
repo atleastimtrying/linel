@@ -23,12 +23,20 @@ window.linel.Play = function(){
     },
 
     componentDidMount: function(){
-      enter_fullscreen();
       events.sub('increment_position', this.incrementPosition);
     },
 
+    empty_level: function(){
+      return({
+        coins: [],
+        segments: [],
+        points: [],
+        title: ""
+      });
+    },
+
     getInitialState: function(){
-      var level = this.local_get();
+      var level = this.local_get() || this.empty_level();
       level.linel = this.start_linel();
       return level;
     },
@@ -36,19 +44,6 @@ window.linel.Play = function(){
     incrementPosition: function(position_modifier){
       this.state.linel.position += (position_modifier * 2);
       this.setState(this.state);
-    },
-
-    enter_fullscreen: function(){
-      console.log('fullscreen?');
-      if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-      } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen();
-      } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-      }
     },
 
     render: function(){
@@ -62,6 +57,7 @@ window.linel.Play = function(){
           </div>
           <div className="aside">
             <a href="/index.html">Home</a>
+            <Fullscreen />
             <JSONDisplay state={this.state.linel} />
           </div>
         </div>
