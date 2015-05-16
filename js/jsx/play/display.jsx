@@ -1,47 +1,38 @@
 var GameDisplay = React.createClass({
-  pointsToString: function(points){
-    var strings = points.map(function(point, i){
-      if(i === 0){
-        return "M " + point.x + " " + point.y;
-      }else{
-        return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
-      }
-    });
-    return strings.join(" ");
-  },
-
-  calculateCoinStyle: function(coin){
-    return {
-      strokeDashoffset: -coin.location + "px"
-    };
-  },
-
-  calculateLinelStyle: function(linel){
-    return {
-      strokeDasharray: linel.length + "px 100000000px",
-      strokeDashoffset: -linel.position + 'px'
-    };
+  pointsToPath: function(points){
+    if(this.path){
+      return this.path;
+    }else{
+      var strings = points.map(function(point, i){
+        if(i === 0){
+          return "M " + point.x + " " + point.y;
+        }else{
+          return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
+        }
+      });
+      this.path = strings.join(" ");
+      return this.path;
+    }
   },
 
   render: function(){
     var state = this.props.state;
-    var pointsString = this.pointsToString(state.points);
+    var path = this.pointsToPath(state.points);
     var linel = state.linel;
 
     var coins = state.coins.map(function(coin){
       return(
-        <path key={coin.key} className="coin" style={this.calculateCoinStyle(coin)} d={pointsString} />
+        <Coin key={coin.id} coin={coin} path={path} />
       );
     }, this);
 
     return(
       <svg className="game_display">
-        <path className="container" d={pointsString} />
+        <path className="container" d={path} />
         {coins}
-        <path className="linel" style={this.calculateLinelStyle(linel)} d={pointsString} />
+        <Linel linel={linel} path={path}/>
       </svg>
     );
   }
 });
-
 

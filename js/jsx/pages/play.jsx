@@ -42,7 +42,7 @@ window.linel.Play = function(){
     },
 
     incrementPosition: function(position_modifier){
-      this.state.linel.position += (position_modifier * 2);
+      this.state.linel.position += position_modifier;
       this.setState(this.state);
     },
 
