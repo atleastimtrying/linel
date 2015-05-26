@@ -7,8 +7,8 @@ var Linel = React.createClass({
   },
 
   render: function(){
-    var linel = this.props.linel
-    var path = this.props.path
+    var linel = this.props.linel;
+    var path = this.props.path;
     return(
       <path className="linel" style={this.calculateLinelStyle(linel)} d={path} />
     );

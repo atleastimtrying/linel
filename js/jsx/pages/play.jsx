@@ -37,28 +37,52 @@ window.linel.Play = function(){
 
     getInitialState: function(){
       var level = this.local_get() || this.empty_level();
+      level.gameover = false;
+      level.coins = level.coins.map(function(coin){ 
+        coin.found = false;
+        return coin; 
+      });
       level.linel = this.start_linel();
       return level;
     },
 
+    checkCoins: function(){
+      this.state.coins = this.state.coins.map(function(coin){
+        if(this.state.linel.position === coin.location){
+          coin.found = true;
+        }
+        return coin;
+      }, this);
+    },
+
+    checkGameEnd: function(){
+      if(this.state.length <= this.state.linel.position){
+        this.state.gameover = true;
+      }
+    },
+
     incrementPosition: function(position_modifier){
       this.state.linel.position += position_modifier;
+      this.checkCoins();
+      this.checkGameEnd();
       this.setState(this.state);
     },
 
     render: function(){
+      var found_coins = this.state.coins.filter(function(coin){ return coin.found; }).length;
+      var title = (this.state.gameover) ? <h2>{'Game over!'}</h2> : <h2>Coins: {found_coins} / {this.state.coins.length}</h2>;
       return(
         <div className="play wrapper">
           <div className="view">
             <h1>{this.state.title}</h1>
-            <h2>Coins: {this.state.linel.coins} / {this.state.coins.length}</h2>
+            {title}
             <GameDisplay state={this.state} />
             <Controls />
           </div>
           <div className="aside">
             <a href="/index.html">Home</a>
             <Fullscreen />
-            <JSONDisplay state={this.state.linel} />
+            <JSONDisplay state={this.state.coins} />
           </div>
         </div>
       );

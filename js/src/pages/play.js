@@ -37,28 +37,52 @@ window.linel.Play = function(){
 
     getInitialState: function(){
       var level = this.local_get() || this.empty_level();
+      level.gameover = false;
+      level.coins = level.coins.map(function(coin){ 
+        coin.found = false;
+        return coin; 
+      });
       level.linel = this.start_linel();
       return level;
     },
 
+    checkCoins: function(){
+      this.state.coins = this.state.coins.map(function(coin){
+        if(this.state.linel.position === coin.location){
+          coin.found = true;
+        }
+        return coin;
+      }, this);
+    },
+
+    checkGameEnd: function(){
+      if(this.state.length <= this.state.linel.position){
+        this.state.gameover = true;
+      }
+    },
+
     incrementPosition: function(position_modifier){
       this.state.linel.position += position_modifier;
+      this.checkCoins();
+      this.checkGameEnd();
       this.setState(this.state);
     },
 
     render: function(){
+      var found_coins = this.state.coins.filter(function(coin){ return coin.found; }).length;
+      var title = (this.state.gameover) ? React.createElement("h2", null, 'Game over!') : React.createElement("h2", null, "Coins: ", found_coins, " / ", this.state.coins.length);
       return(
         React.createElement("div", {className: "play wrapper"}, 
           React.createElement("div", {className: "view"}, 
             React.createElement("h1", null, this.state.title), 
-            React.createElement("h2", null, "Coins: ", this.state.linel.coins, " / ", this.state.coins.length), 
+            title, 
             React.createElement(GameDisplay, {state: this.state}), 
             React.createElement(Controls, null)
           ), 
           React.createElement("div", {className: "aside"}, 
             React.createElement("a", {href: "/index.html"}, "Home"), 
             React.createElement(Fullscreen, null), 
-            React.createElement(JSONDisplay, {state: this.state.linel})
+            React.createElement(JSONDisplay, {state: this.state.coins})
           )
         )
       );

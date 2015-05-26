@@ -1,7 +1,8 @@
 .game_display{
   path{
     &.linel{
-      stroke:#3366CC;
+      /*stroke:#3366CC;*/
+      stroke:white;
       stroke-width:5px;
     }
     &.container{

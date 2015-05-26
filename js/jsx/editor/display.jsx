@@ -34,6 +34,16 @@ var Display = React.createClass({
     };
   },
 
+  componentDidUpdate: function(){
+    var path_length = this.refs.container.getDOMNode().getTotalLength();
+    if(this.refs.container && path_length !== this.props.state.length){
+      events.pub('attribute_update', {
+        attribute: 'length', 
+        value: path_length
+      });
+    }
+  },
+
   render: function(){
     var state = this.props.state;
     var pointsString = this.pointsToString(state.points);
@@ -56,7 +66,7 @@ var Display = React.createClass({
       <svg>
         {segments}
         {coins}
-        <path className="path" d={pointsString} />
+        <path className="path" d={pointsString} ref="container"/>
         <circle className="indicator" cx={editing.x} cy={editing.y} r="10" />
       </svg>
     );

@@ -1,18 +1,25 @@
 var GameDisplay = React.createClass({displayName: "GameDisplay",
+  pointsToString: function(points){
+    var strings = points.map(function(point, i){
+      if(i === 0){
+        return "M " + point.x + " " + point.y;
+      }else{
+        return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
+      }
+    });
+    return strings.join(" ");
+  },
+
   pointsToPath: function(points){
     if(this.path){
       return this.path;
     }else{
-      var strings = points.map(function(point, i){
-        if(i === 0){
-          return "M " + point.x + " " + point.y;
-        }else{
-          return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
-        }
-      });
-      this.path = strings.join(" ");
-      return this.path;
+      return this.path = this.pointsToString(points);
     }
+  },
+
+  not_found: function(coin){
+    return !coin.found;
   },
 
   render: function(){
@@ -20,7 +27,7 @@ var GameDisplay = React.createClass({displayName: "GameDisplay",
     var path = this.pointsToPath(state.points);
     var linel = state.linel;
 
-    var coins = state.coins.map(function(coin){
+    var coins = state.coins.filter(this.not_found).map(function(coin){
       return(
         React.createElement(Coin, {key: coin.id, coin: coin, path: path})
       );
