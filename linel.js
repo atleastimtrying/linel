@@ -19542,58 +19542,6 @@ module.exports = warning;
 
 window.linel = {};
 
-var AddPoint = React.createClass({displayName: "AddPoint",
-  findLastPoint: function(){
-    if(this.props.points.length){
-      return this.props.points[this.props.points.length - 1];
-    }else{
-      return {x: 20, y: 20};
-    }
-  },
-  emitPoint: function(){
-    var last_point = this.findLastPoint();
-    events.pub('create', {
-      key: Date.now(),
-      collection: 'points',
-      x: last_point.x + 20,
-      y: last_point.y,
-      ax: last_point.x + 20,
-      ay: last_point.y,
-      bx: last_point.x + 20,
-      by: last_point.y,
-      editing: false
-    });
-  },
-  render: function(){
-    return(React.createElement("button", {className: "positive", onClick: this.emitPoint}, "Add Point"));
-  }
-});
-
-var AddSegment = React.createClass({displayName: "AddSegment",
-  findPrevious: function(){
-    if(this.props.segments.length){
-      return this.props.segments[this.props.segments.length - 1];
-    }else{
-      return { colour: 'green', start: 0, length: 30, modifier: -1};
-    }
-  },
-  emit: function(){
-    var last_segment = this.findPrevious();
-    events.pub('create', {
-      key: Date.now(),
-      collection: 'segments',
-      colour: last_segment.colour,
-      start: last_segment.start + last_segment.length,
-      length: last_segment.length,
-      modifier: last_segment.modifier,
-      editing: false
-    });
-  },
-  render: function(){
-    return(React.createElement("button", {className: "positive", onClick: this.emit}, "Add segment"));
-  }
-});
-
 window.linel.CanvasOutliner = function(events){
   var canvas = document.createElement('canvas');
   canvas.width = 400;
@@ -19627,53 +19575,6 @@ window.linel.Direction = function(events){
   events.sub('delay_applied', apply_direction);
 };
 
-var Display = React.createClass({displayName: "Display",
-  pointsToString: function(points){
-    var strings = points.map(function(point, i){
-      if(i === 0){
-        return "M " + point.x + " " + point.y;
-      }else{
-        return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
-      }
-    });
-    return strings.join(" ");
-  },
-
-  findEditingPoint: function(){
-    return this.props.points.filter(function(point){
-      return point.editing;
-    })[0];
-  },
-
-  calculateSegmentStyle: function(segment){
-    return {
-      stroke: segment.colour,
-      strokeDasharray: segment.length +"px 10000000px",
-      strokeDashoffset: - segment.start + "px",
-      strokeWidth: 9
-    };
-  },
-
-  render: function(){
-    var pointsString = this.pointsToString(this.props.points);
-    var editing = this.findEditingPoint();
-    editing = editing ? editing : {x: -100, y: -100} ;
-    var segments = this.props.segments.map(function(segment){
-      return(
-        React.createElement("path", {key: segment.key, style: this.calculateSegmentStyle(segment), d: pointsString})
-      );
-    }, this);
-    return(
-      React.createElement("svg", null, 
-        segments, 
-        React.createElement("path", {className: "path", d: pointsString}), 
-        React.createElement("circle", {className: "indicator", cx: editing.x, cy: editing.y, r: "10"})
-      )
-    );
-  }
-});
-
-
 window.linel.DisplayState = function(events){
   var state_to_table = function(state){
     var html = '<table>';
@@ -19691,70 +19592,531 @@ window.linel.DisplayState = function(events){
   });
 };
 
-window.linel.Editor = function(){
-  window.events = new window.linel.Events();
+var AddCoin = React.createClass({displayName: "AddCoin",
+  findCoins: function(){
+    if(this.props.coins.length){
+      return this.props.coins[this.props.coins.length - 1];
+    }else{
+      return {location: 20};
+    }
+  },
+  emitCoin: function(){
+    var last_coin = this.findCoins();
+    events.pub('create', {
+      key: Date.now(),
+      collection: 'coins',
+      location: last_coin.location + 20,
+      editing: false
+    });
+  },
+  render: function(){
+    return(React.createElement("button", {className: "positive", onClick: this.emitCoin}, "Add Coin"));
+  }
+});
 
-  var App = React.createClass({displayName: "App",
+var AddPoint = React.createClass({displayName: "AddPoint",
+  findLastPoint: function(){
+    if(this.props.points.length){
+      return this.props.points[this.props.points.length - 1];
+    }else{
+      return {x: 20, y: 20};
+    }
+  },
+  emitPoint: function(){
+    var last_point = this.findLastPoint();
+    events.pub('create', {
+      key: Date.now(),
+      collection: 'points',
+      x: last_point.x + 20,
+      y: last_point.y,
+      ax: last_point.x + 20,
+      ay: last_point.y,
+      bx: last_point.x + 20,
+      by: last_point.y,
+      editing: false
+    });
+  },
+  render: function(){
+    return(React.createElement("button", {className: "positive", onClick: this.emitPoint}, "Add Point"));
+  }
+});
 
-    create: function(element){
-      this.state[element.collection].push(element);
-      this.setState(this.state);
-    },
+var AddSegment = React.createClass({displayName: "AddSegment",
+  findPrevious: function(){
+    if(this.props.segments.length){
+      return this.props.segments[this.props.segments.length - 1];
+    }else{
+      return { colour: '#3366DD', start: 0, length: 30, modifier: -1};
+    }
+  },
+  emit: function(){
+    var last_segment = this.findPrevious();
+    events.pub('create', {
+      key: Date.now(),
+      collection: 'segments',
+      colour: last_segment.colour,
+      start: last_segment.start + last_segment.length,
+      length: last_segment.length,
+      modifier: last_segment.modifier,
+      editing: false
+    });
+  },
+  render: function(){
+    return(React.createElement("button", {className: "positive", onClick: this.emit}, "Add segment"));
+  }
+});
 
-    destroy: function(element){
-      this.state[element.collection] = this.state[element.collection].filter(function(item){
-        return item.key !== element.key;
-      });
-      this.setState(this.state);
-    },
+var AttributeEditor = React.createClass({displayName: "AttributeEditor",
+  update: function(){
+    events.pub('attribute_update', {attribute: this.props.attribute, value: this.refs.input.getDOMNode().value});
+  },
+  render: function(){
+    var type = this.props.type || 'text';
+    return(
+      React.createElement("input", {type: type, value: this.props.value, ref: "input", onChange: this.update})
+    );
+  }
+});
 
-    edit: function(element){
-      this.state[element.collection] = this.state[element.collection].map(function(item){
-        item.editing = (item.key === element.key);
-        return item;
-      });
-      this.setState(this.state);
-    },
-
-    update: function(element){
-      this.state[element.collection] = this.state[element.collection].map(function(item){
-        if(item.key === element.key){
-          item = element;
-        }
-        return item;
-      });
-      this.setState(this.state);
-    },
-
-    componentDidMount: function(){
-      events.sub('destroy', this.destroy);
-      events.sub('create', this.create);
-      events.sub('edit', this.edit);
-      events.sub('update', this.update);
-    },
-    getInitialState: function(){
-      return {points: [], segments: []};
-    },
-    render: function(){
-      return(
-        React.createElement("div", {className: "editor"}, 
-          React.createElement("div", {className: "view"}, 
-            React.createElement("div", {className: "svgContainer"}, 
-              React.createElement(Input, null), 
-              React.createElement(Display, {points: this.state.points, segments: this.state.segments})
-            ), 
-            React.createElement(JSONDisplay, {state: this.state})
-          ), 
-          React.createElement("div", {className: "aside"}, 
-            React.createElement(PointsTable, {points: this.state.points}), 
-            React.createElement(SegmentsTable, {segments: this.state.segments})
-          )
-        )
+var CoinEditor = React.createClass({displayName: "CoinEditor",
+  destroy: function(){
+    events.pub('destroy', this.props.coin);
+  },
+  edit: function(){
+    this.s = {
+      key:this.props.coin.key,
+      collection: 'coins',
+      location: this.props.coin.location,
+      editing: false
+    };
+    events.pub('edit', this.props.coin);
+  },
+  save: function(){
+    this.props.coin.editing = false;
+    events.pub('update', this.props.coin);
+  },
+  cancel: function(){
+    events.pub('update', this.s);
+  },
+  get_ref_int: function(name){
+    return parseInt(this.get_ref(name));
+  },
+  get_ref: function(name){
+    return this.refs[name].getDOMNode().value;
+  },
+  changeInput: function(){
+    this.props.coin.location = this.get_ref_int('location');
+    events.pub('update', this.props.coin);
+  },
+  render: function(){
+    var content;
+    if(this.props.coin.editing){
+      content =
+      React.createElement("tr", null, 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.coin.location, onChange: this.changeInput, ref: "location"})), 
+        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.cancel}, "cancel")), 
+        React.createElement("td", null, React.createElement("button", {className: "positive", onClick: this.save}, "save"))
+      );
+    }else{
+      content =
+      React.createElement("tr", null, 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.coin.location)), 
+        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.destroy}, "destroy")), 
+        React.createElement("td", null, React.createElement("button", {onClick: this.edit}, "edit"))
       );
     }
-  });
-  React.render(React.createElement(App, null), document.body);
-};
+    return(content);
+  }
+});
+
+
+var CoinsTable = React.createClass({displayName: "CoinsTable",
+  render: function(){
+    var coins = this.props.coins.map(function(coin){
+      return(
+        React.createElement(CoinEditor, {key: coin.key, coin: coin})
+      );
+    }, this);
+    return(
+      React.createElement("div", {className: "table_editor"}, 
+        React.createElement("h2", null, "Coins"), 
+        React.createElement("table", null, 
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, "location"), 
+              React.createElement("th", null), 
+              React.createElement("th", null)
+            )
+          ), 
+          React.createElement("tbody", null, 
+            coins
+          )
+        ), 
+        React.createElement(AddCoin, {coins: this.props.coins})
+      )
+    );
+  }
+});
+
+
+var Display = React.createClass({displayName: "Display",
+  pointsToString: function(points){
+    var strings = points.map(function(point, i){
+      if(i === 0){
+        return "M " + point.x + " " + point.y;
+      }else{
+        return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
+      }
+    });
+    return strings.join(" ");
+  },
+
+  findEditingPoint: function(){
+    return this.props.state.points.filter(function(point){
+      return point.editing;
+    })[0];
+  },
+
+  calculateCoinStyle: function(coin){
+    return {
+      stroke: 'yellow',
+      strokeDasharray: "1px 10000000px",
+      strokeDashoffset: - coin.location + "px",
+      strokeWidth: 11
+    };
+  },
+
+  calculateSegmentStyle: function(segment){
+    return {
+      stroke: segment.colour,
+      strokeDasharray: segment.length +"px 10000000px",
+      strokeDashoffset: - segment.start + "px",
+      strokeWidth: 9
+    };
+  },
+
+  componentDidUpdate: function(){
+    var path_length = this.refs.container.getDOMNode().getTotalLength();
+    if(this.refs.container && path_length !== this.props.state.length){
+      events.pub('attribute_update', {
+        attribute: 'length', 
+        value: path_length
+      });
+    }
+  },
+
+  render: function(){
+    var state = this.props.state;
+    var pointsString = this.pointsToString(state.points);
+    var editing = this.findEditingPoint();
+    editing = editing ? editing : {x: -100, y: -100} ;
+
+    var segments = state.segments.map(function(segment){
+      return(
+        React.createElement("path", {key: segment.key, style: this.calculateSegmentStyle(segment), d: pointsString})
+      );
+    }, this);
+
+    var coins = state.coins.map(function(coin){
+      return(
+        React.createElement("path", {key: coin.key, style: this.calculateCoinStyle(coin), d: pointsString})
+      );
+    }, this);
+
+    return(
+      React.createElement("svg", null, 
+        segments, 
+        coins, 
+        React.createElement("path", {className: "path", d: pointsString, ref: "container"}), 
+        React.createElement("circle", {className: "indicator", cx: editing.x, cy: editing.y, r: "10"})
+      )
+    );
+  }
+});
+
+
+var EditorHeader = React.createClass({displayName: "EditorHeader",
+  render: function(){
+    var state = this.props.state;
+    return(
+      React.createElement("header", {className: "editor_header"}, 
+        React.createElement(AttributeEditor, {attribute: "title", value: state.title}), 
+        React.createElement(AttributeEditor, {attribute: "author", value: state.author}), 
+        React.createElement(AttributeEditor, {attribute: "difficulty", value: state.difficulty, type: "number"}), 
+        React.createElement(Save, {state: state}), 
+        React.createElement("a", {href: "/", className: "negative btn"}, "quit")
+      )
+    );
+  }
+});
+
+var Input = React.createClass({displayName: "Input",
+  startPoint: function(event){
+    var x = event.nativeEvent.offsetX;
+    var y = event.nativeEvent.offsetY;
+    this.p = {
+      key: Date.now(),
+      collection: 'points',
+      x: x,
+      y: y,
+      ax: x,
+      ay: y,
+      bx: x,
+      by: y,
+      editing: true
+    };
+    window.events.pub('create', this.p);
+  },
+  updatePoint: function(event){
+    if(this.p && this.p.editing){
+      var x = event.nativeEvent.offsetX;
+      var y = event.nativeEvent.offsetY;
+      this.p.ax = x;
+      this.p.ay = y;
+      window.events.pub('update', this.p);
+    }
+  },
+  endPoint: function(){
+    this.p.editing = false;
+    window.events.pub('update', this.p);
+  },
+  render: function(){
+    return(
+      React.createElement("div", {className: "input", onMouseDown: this.startPoint, onMouseMove: this.updatePoint, onMouseUp: this.endPoint})
+    );
+  }
+});
+
+
+var JSONDisplay = React.createClass({displayName: "JSONDisplay",
+  stateToJSON: function(){
+    return JSON.stringify(this.props.state, null , '  ');
+  },
+
+  render: function(){
+    return(
+      React.createElement("textarea", {readOnly: true, value: this.stateToJSON()})
+    );
+  }
+});
+
+
+var LevelLength = React.createClass({displayName: "LevelLength",
+  render: function(){
+    var length = 0;
+    return(React.createElement("div", null, length));
+  }
+});
+
+var PointEditor = React.createClass({displayName: "PointEditor",
+  destroy: function(){
+    events.pub('destroy', this.props.point);
+  },
+  edit: function(){
+    this.p = {
+      key:this.props.point.key,
+      collection: 'points',
+      x: this.props.point.x,
+      y: this.props.point.y,
+      ax: this.props.point.ax,
+      ay: this.props.point.ay,
+      bx: this.props.point.bx,
+      by: this.props.point.by,
+      editing: false
+    };
+    events.pub('edit', this.props.point);
+  },
+  save: function(){
+    this.props.point.editing = false;
+    events.pub('update', this.props.point);
+  },
+  cancel: function(){
+    events.pub('update', this.p);
+  },
+  get_ref_int: function(name){
+    return parseInt(this.refs[name].getDOMNode().value);
+  },
+  changeInput: function(){
+    this.props.point.x = this.get_ref_int('x') || 0;
+    this.props.point.y = this.get_ref_int('y') || 0;
+    this.props.point.ax = this.get_ref_int('ax') || 0;
+    this.props.point.ay = this.get_ref_int('ay') || 0;
+    this.props.point.bx = this.get_ref_int('bx') || 0;
+    this.props.point.by = this.get_ref_int('by') || 0;
+    events.pub('update', this.props.point);
+  },
+  render: function(){
+    var content;
+    if(this.props.point.editing){
+      content =
+      React.createElement("tr", null, 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.x, onChange: this.changeInput, ref: "x"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.y, onChange: this.changeInput, ref: "y"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.ax, onChange: this.changeInput, ref: "ax"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.ay, onChange: this.changeInput, ref: "ay"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.bx, onChange: this.changeInput, ref: "bx"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.by, onChange: this.changeInput, ref: "by"})), 
+        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.cancel}, "cancel")), 
+        React.createElement("td", null, React.createElement("button", {className: "positive", onClick: this.save}, "save"))
+      );
+    }else{
+      content =
+      React.createElement("tr", null, 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.x)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.y)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.ax)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.ay)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.bx)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.by)), 
+        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.destroy}, "destroy")), 
+        React.createElement("td", null, React.createElement("button", {onClick: this.edit}, "edit"))
+      );
+    }
+    return(content);
+  }
+});
+
+
+var PointsTable = React.createClass({displayName: "PointsTable",
+  render: function(){
+    var points = this.props.points.map(function(point){
+      return(
+        React.createElement(PointEditor, {key: point.key, point: point})
+      );
+    }, this);
+    return(
+      React.createElement("div", {className: "table_editor"}, 
+        React.createElement("h2", null, "Points"), 
+        React.createElement("table", null, 
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, "x"), 
+              React.createElement("th", null, "y"), 
+              React.createElement("th", null, "ax"), 
+              React.createElement("th", null, "ay"), 
+              React.createElement("th", null, "bx"), 
+              React.createElement("th", null, "by"), 
+              React.createElement("th", null), 
+              React.createElement("th", null)
+            )
+          ), 
+          React.createElement("tbody", null, 
+            points
+          )
+        ), 
+        React.createElement(AddPoint, {points: this.props.points})
+      )
+    );
+  }
+});
+
+
+var Save = React.createClass({displayName: "Save",
+  save: function(){
+    events.pub('save');
+  },
+  render: function(){
+    return(
+      React.createElement("button", {className: "positive", onClick: this.save},  this.props.state.id ? 'Update' : 'Save')
+    );
+  }
+});
+
+var SegmentEditor = React.createClass({displayName: "SegmentEditor",
+  destroy: function(){
+    events.pub('destroy', this.props.segment);
+  },
+  edit: function(){
+    this.s = {
+      key:this.props.segment.key,
+      collection: 'segments',
+      colour: this.props.segment.colour,
+      start: this.props.segment.start,
+      length: this.props.segment.length,
+      modifier: this.props.segment.modifier,
+      editing: false
+    };
+    events.pub('edit', this.props.segment);
+  },
+  save: function(){
+    this.props.segment.editing = false;
+    events.pub('update', this.props.segment);
+  },
+  cancel: function(){
+    events.pub('update', this.s);
+  },
+  get_ref_int: function(name){
+    return parseInt(this.get_ref(name));
+  },
+  get_ref: function(name){
+    return this.refs[name].getDOMNode().value;
+  },
+  changeInput: function(){
+    this.props.segment.colour = this.get_ref('colour');
+    this.props.segment.start = this.get_ref_int('start');
+    this.props.segment.length = this.get_ref_int('length');
+    this.props.segment.modifier = this.get_ref_int('modifier');
+    events.pub('update', this.props.segment);
+  },
+  render: function(){
+    var content;
+    if(this.props.segment.editing){
+      content =
+      React.createElement("tr", null, 
+        React.createElement("td", null, React.createElement("input", {type: "text", value: this.props.segment.colour, onChange: this.changeInput, ref: "colour"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.segment.start, onChange: this.changeInput, ref: "start"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.segment.length, onChange: this.changeInput, ref: "length"})), 
+        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.segment.modifier, onChange: this.changeInput, ref: "modifier"})), 
+        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.cancel}, "cancel")), 
+        React.createElement("td", null, React.createElement("button", {className: "positive", onClick: this.save}, "save"))
+      );
+    }else{
+      content =
+      React.createElement("tr", null, 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.colour)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.start)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.length)), 
+        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.modifier)), 
+        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.destroy}, "destroy")), 
+        React.createElement("td", null, React.createElement("button", {onClick: this.edit}, "edit"))
+      );
+    }
+    return(content);
+  }
+});
+
+
+var SegmentsTable = React.createClass({displayName: "SegmentsTable",
+  render: function(){
+    var segments = this.props.segments.map(function(segment){
+      return(
+        React.createElement(SegmentEditor, {key: segment.key, segment: segment})
+      );
+    }, this);
+    return(
+      React.createElement("div", {className: "table_editor"}, 
+        React.createElement("h2", null, "Segments"), 
+        React.createElement("table", null, 
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, "colour"), 
+              React.createElement("th", null, "start"), 
+              React.createElement("th", null, "length"), 
+              React.createElement("th", null, "modifier"), 
+              React.createElement("th", null), 
+              React.createElement("th", null)
+            )
+          ), 
+          React.createElement("tbody", null, 
+            segments
+          )
+        ), 
+        React.createElement(AddSegment, {segments: this.props.segments})
+      )
+    );
+  }
+});
+
 
 window.linel.Environment = function(events){
   var apply_environment = function(old_state){
@@ -19831,179 +20193,487 @@ window.addEventListener('load', function(){
 });
 
 
-var Input = React.createClass({displayName: "Input",
-  startPoint: function(event){
-    var x = event.nativeEvent.offsetX;
-    var y = event.nativeEvent.offsetY;
-    this.p = {
-      key: Date.now(),
-      collection: 'points',
-      x: x,
-      y: y,
-      ax: x,
-      ay: y,
-      bx: x,
-      by: y,
-      editing: true
-    };
-    window.events.pub('create', this.p);
-  },
-  updatePoint: function(event){
-    if(this.p && this.p.editing){
-      var x = event.nativeEvent.offsetX;
-      var y = event.nativeEvent.offsetY;
-      this.p.ax = x;
-      this.p.ay = y;
-      window.events.pub('update', this.p);
-    }
-  },
-  endPoint: function(){
-    this.p.editing = false;
-    window.events.pub('update', this.p);
+var LevelMenuItem = React.createClass({displayName: "LevelMenuItem",
+  pointsToString: function(points){
+    var strings = points.map(function(point, i){
+      if(i === 0){
+        return "M " + point.x + " " + point.y + " ";
+      }else{
+        return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y + " ";
+      }
+    }, "");
+    return strings.join(" ");
   },
   render: function(){
+    var level = this.props.level;
+    var points_string = this.pointsToString(this.props.level.points);
     return(
-      React.createElement("div", {className: "input", onMouseDown: this.startPoint, onMouseMove: this.updatePoint, onMouseUp: this.endPoint})
+      React.createElement("div", {className: "level_menu_item"}, 
+        React.createElement("svg", null, 
+          React.createElement("path", {d: points_string})
+        ), 
+        React.createElement("h2", null, level.title, " by ", level.author), 
+        React.createElement("ul", null, 
+          React.createElement("li", null, "difficulty: ", level.difficulty), 
+          React.createElement("li", null, "coins: ", level.coins.length || "0"), 
+          React.createElement("li", null, "length: ", level.length || "0")
+        ), 
+        React.createElement("a", {href:  "edit.html#" + level.id, className: "btn"}, "Edit"), 
+        React.createElement("a", {href:  "play.html#" + level.id, className: "btn"}, "Play")
+      )
     );
   }
 });
 
+window.linel.Editor = function(){
+  window.events = new window.linel.Events();
 
-var JSONDisplay = React.createClass({displayName: "JSONDisplay",
-  stateToJSON: function(){
-    return JSON.stringify(this.props.state);
-  },
+  var App = React.createClass({displayName: "App",
 
-  render: function(){
-    return(
-      React.createElement("textarea", {value: this.stateToJSON()})
-    );
-  }
-});
+    create: function(element){
+      this.state[element.collection].push(element);
+      this.setState(this.state);
+    },
 
+    destroy: function(element){
+      this.state[element.collection] = this.state[element.collection].filter(function(item){
+        return item.key !== element.key;
+      });
+      this.setState(this.state);
+    },
 
-var PointEditor = React.createClass({displayName: "PointEditor",
-  destroy: function(){
-    events.pub('destroy', this.props.point);
-  },
-  edit: function(){
-    this.p = {
-      key:this.props.point.key,
-      collection: 'points',
-      x: this.props.point.x,
-      y: this.props.point.y,
-      ax: this.props.point.ax,
-      ay: this.props.point.ay,
-      bx: this.props.point.bx,
-      by: this.props.point.by,
-      editing: false
-    };
-    events.pub('edit', this.props.point);
-  },
-  save: function(){
-    this.props.point.editing = false;
-    events.pub('update', this.props.point);
-  },
-  cancel: function(){
-    events.pub('update', this.p);
-  },
-  get_ref_int: function(name){
-    return parseInt(this.refs[name].getDOMNode().value);
-  },
-  changeInput: function(){
-    this.props.point.x = this.get_ref_int('x') || 0;
-    this.props.point.y = this.get_ref_int('y') || 0;
-    this.props.point.ax = this.get_ref_int('ax') || 0;
-    this.props.point.ay = this.get_ref_int('ay') || 0;
-    this.props.point.bx = this.get_ref_int('bx') || 0;
-    this.props.point.by = this.get_ref_int('by') || 0;
-    events.pub('update', this.props.point);
-  },
-  render: function(){
-    var content;
-    if(this.props.point.editing){
-      content =
-      React.createElement("tr", null, 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.x, onChange: this.changeInput, ref: "x"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.y, onChange: this.changeInput, ref: "y"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.ax, onChange: this.changeInput, ref: "ax"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.ay, onChange: this.changeInput, ref: "ay"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.bx, onChange: this.changeInput, ref: "bx"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.point.by, onChange: this.changeInput, ref: "by"})), 
-        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.cancel}, "cancel")), 
-        React.createElement("td", null, React.createElement("button", {className: "positive", onClick: this.save}, "save"))
-      );
-    }else{
-      content =
-      React.createElement("tr", null, 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.x)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.y)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.ax)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.ay)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.bx)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.point.by)), 
-        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.destroy}, "destroy")), 
-        React.createElement("td", null, React.createElement("button", {onClick: this.edit}, "edit"))
-      );
-    }
-    return(content);
-  }
-});
+    edit: function(element){
+      this.state[element.collection] = this.state[element.collection].map(function(item){
+        item.editing = (item.key === element.key);
+        return item;
+      });
+      this.setState(this.state);
+    },
 
+    update: function(element){
+      this.state[element.collection] = this.state[element.collection].map(function(item){
+        if(item.key === element.key){
+          item = element;
+        }
+        return item;
+      });
+      this.setState(this.state);
+    },
 
-var PointsDisplay = React.createClass({displayName: "PointsDisplay",
-  render: function(){
-    var points = this.props.points.map(function(point){
+    get_all_levels: function(){
+      return JSON.parse(localStorage.getItem('linel_levels')) || [];
+    },
+
+    create_level: function(){
+      var levels = this.get_all_levels();
+      var highest_level = levels.reduce(function(previous, level){
+        return Math.max(previous, parseInt(level.id));
+      }, 0);
+      this.state.id = highest_level + 1;
+      levels.push(this.state);
+      this.set_levels(levels);
+    },
+
+    set_levels: function(levels){
+      localStorage.setItem('linel_levels', JSON.stringify(levels));
+    },
+
+    update_level: function(){
+      var new_levels = this.get_all_levels().map(function(level){
+        if(level.id === this.state.id){
+          return this.state;
+        }else{
+          return level;
+        }
+      }, this);
+      this.set_levels(new_levels);
+    },
+
+    save: function(){
+      if(this.state.id === undefined){
+        this.create_level();
+      }else{
+        this.update_level();
+      }
+    },
+
+    attribute_update: function(reference){
+      this.state[reference.attribute] = reference.value;
+      this.setState(this.state);
+    },
+
+    starter: function(){
+      return({
+        title: 'new_level',
+        author: '',
+        difficulty: 1,
+        points: [],
+        segments: [],
+        coins: []
+      });
+    },
+
+    local_get: function(){
+      var id = parseInt(window.location.hash.substr(1));
+      var levels = this.get_all_levels();
+      return levels.filter(function(level){
+        return level.id === id;
+      })[0];
+    },
+
+    componentDidMount: function(){
+      events.sub('destroy', this.destroy);
+      events.sub('create', this.create);
+      events.sub('edit', this.edit);
+      events.sub('update', this.update);
+      events.sub('attribute_update', this.attribute_update);
+      events.sub('save', this.save);
+    },
+
+    getInitialState: function(){
+      return this.local_get() || this.starter();
+    },
+
+    render: function(){
       return(
-        React.createElement(PointEditor, {key: point.key, point: point})
+        React.createElement("div", null, 
+          React.createElement(EditorHeader, {state: this.state}), 
+          React.createElement("div", {className: "editor wrapper"}, 
+            React.createElement("div", {className: "view"}, 
+              React.createElement("div", {className: "svgContainer"}, 
+                React.createElement(Input, null), 
+                React.createElement(Display, {state: this.state})
+              ), 
+              React.createElement(PointsTable, {points: this.state.points})
+            ), 
+            React.createElement("div", {className: "aside"}, 
+              React.createElement(CoinsTable, {coins: this.state.coins}), 
+              React.createElement(SegmentsTable, {segments: this.state.segments}), 
+              React.createElement(JSONDisplay, {state: this.state})
+            )
+          )
+        )
+      );
+    }
+  });
+  React.render(React.createElement(App, null), document.body);
+};
+
+window.linel.Index = function(){
+  var App = React.createClass({displayName: "App",
+
+    getInitialState: function(){
+      return {levels: this.local_get() || []};
+    },
+
+    componentDidMount: function(){
+      if(this.state.levels.length === 0){
+        this.seed();
+      }
+    },
+
+    local_get: function(){
+      return JSON.parse(localStorage.getItem('linel_levels'));
+    },
+
+    local_set: function(levels){
+      localStorage.setItem('linel_levels', JSON.stringify(levels));
+    },
+
+    remote_get: function(complete){
+      var url = '/seed.json';
+      var request = new XMLHttpRequest();
+      request.open('GET', url, true);
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          var data = request.responseText;
+          complete(data);
+        }
+      };
+      request.send();
+    },
+
+    seed: function(){
+      this.remote_get(function(levels){
+        levels = JSON.parse(levels);
+        this.local_set(levels);
+        this.setState({levels:levels});
+      }.bind(this));
+    },
+
+    render: function(){
+      var level_menu_items = this.state.levels.map(function(level){
+        return(React.createElement(LevelMenuItem, {key: level.id, level: level}));
+      });
+
+      return(
+        React.createElement("div", {className: "index wrapper"}, 
+          React.createElement("div", {className: "view"}, 
+            React.createElement("h1", null, "Linel"), 
+             React.createElement("p", null, "A one dimensional adventure game!")
+          ), 
+          React.createElement("div", {className: "aside"}, 
+            React.createElement("a", {href: "/edit.html", className: "btn positive"}, "Create a new level!"), 
+            React.createElement("div", {className: "level_select"}, 
+              level_menu_items
+            )
+          )
+        )
+      );
+    }
+  });
+  React.render(React.createElement(App, null), document.body);
+};
+
+window.linel.LevelSelect = function(){
+  var App = React.createClass({displayName: "App",
+    getInitialState: function(){
+      //return JSON.parse(localStorage.getItem('linel_levels'));
+      return({levels:[
+        {
+          id: 1,
+          name: 'straight linel',
+          difficulty: 1,
+          author: 'Anders',
+          points:[],
+          segments:[],
+          coins: []
+        }
+      ]});
+    },
+    render: function(){
+      var level_menu_items = this.state.levels.map(function(level){
+        return(React.createElement(LevelMenuItem, {level: level}));
+      });
+      return(
+        React.createElement("div", {className: "level_select"}, 
+          level_menu_items
+        )
+      );
+    }
+  });
+  React.render(React.createElement(App, null), document.body);
+};
+
+window.linel.Play = function(){
+  window.events = new window.linel.Events();
+
+  var App = React.createClass({displayName: "App",
+    get_all_levels: function(){
+      return JSON.parse(localStorage.getItem('linel_levels')) || [];
+    },
+
+    local_get: function(){
+      var id = parseInt(window.location.hash.substr(1));
+      var levels = this.get_all_levels();
+      return levels.filter(function(level){
+        return level.id === id;
+      })[0];
+    },
+
+    start_linel: function(){
+      return({
+        position: 0,
+        length: 10,
+        coins: 0
+      });
+    },
+
+    componentDidMount: function(){
+      events.sub('increment_position', this.incrementPosition);
+    },
+
+    empty_level: function(){
+      return({
+        coins: [],
+        segments: [],
+        points: [],
+        title: ""
+      });
+    },
+
+    getInitialState: function(){
+      var level = this.local_get() || this.empty_level();
+      level.gameover = false;
+      level.coins = level.coins.map(function(coin){ 
+        coin.found = false;
+        return coin; 
+      });
+      level.linel = this.start_linel();
+      return level;
+    },
+
+    checkCoins: function(){
+      this.state.coins = this.state.coins.map(function(coin){
+        if(this.state.linel.position === coin.location){
+          coin.found = true;
+        }
+        return coin;
+      }, this);
+    },
+
+    checkGameEnd: function(){
+      if(this.state.length <= this.state.linel.position){
+        this.state.gameover = true;
+      }
+    },
+
+    incrementPosition: function(position_modifier){
+      this.state.linel.position += position_modifier;
+      this.checkCoins();
+      this.checkGameEnd();
+      this.setState(this.state);
+    },
+
+    render: function(){
+      var found_coins = this.state.coins.filter(function(coin){ return coin.found; }).length;
+      var title = (this.state.gameover) ? React.createElement("h2", null, 'Game over!') : React.createElement("h2", null, "Coins: ", found_coins, " / ", this.state.coins.length);
+      return(
+        React.createElement("div", {className: "play wrapper"}, 
+          React.createElement("div", {className: "view"}, 
+            React.createElement("h1", null, this.state.title), 
+            title, 
+            React.createElement(GameDisplay, {state: this.state}), 
+            React.createElement(Controls, null)
+          ), 
+          React.createElement("div", {className: "aside"}, 
+            React.createElement("a", {href: "/index.html"}, "Home"), 
+            React.createElement(Fullscreen, null), 
+            React.createElement(JSONDisplay, {state: this.state.coins})
+          )
+        )
+      );
+    }
+  });
+  React.render(React.createElement(App, null), document.body);
+};
+
+
+var Coin = React.createClass({displayName: "Coin",
+  calculateCoinStyle: function(coin){
+    return {
+      strokeDashoffset: -coin.location + "px"
+    };
+  },
+
+  render: function(){
+    return(
+      React.createElement("path", {key: this.props.coin.key, className: "coin", style: this.calculateCoinStyle(this.props.coin), d: this.props.path})
+    );
+  }
+});
+
+var Controls = React.createClass({displayName: "Controls",
+  startMovement: function(which){
+    this.position_modifier = (which === 39) ? 1 : -1;
+  },
+  endMovement: function(){
+    this.position_modifier = false;
+  },
+  emit: function(){
+    events.pub('increment_position', this.position_modifier);
+  },
+  loop: function(){
+    if(this.position_modifier){
+      this.emit();
+    }
+    requestAnimationFrame(this.loop);
+  },
+  componentDidMount: function(){
+    window.addEventListener('keydown', function(event){
+      this.startMovement(event.which);
+    }.bind(this));
+
+    window.addEventListener('keyup', function(event){
+      this.endMovement();
+    }.bind(this));
+    this.loop();
+  },
+  render: function(){
+    return React.createElement("div", {className: "controls"});
+  }
+});
+
+var GameDisplay = React.createClass({displayName: "GameDisplay",
+  pointsToString: function(points){
+    var strings = points.map(function(point, i){
+      if(i === 0){
+        return "M " + point.x + " " + point.y;
+      }else{
+        return "C " + point.ax + " " + point.ay + ", " + point.bx + " " + point.by + ", "+ point.x + " " + point.y;
+      }
+    });
+    return strings.join(" ");
+  },
+
+  pointsToPath: function(points){
+    if(!this.path){
+      this.path = this.pointsToString(points);
+    }
+    return this.path;
+  },
+
+  not_found: function(coin){
+    return !coin.found;
+  },
+
+  render: function(){
+    var state = this.props.state;
+    var path = this.pointsToPath(state.points);
+    var linel = state.linel;
+
+    var coins = state.coins.filter(this.not_found).map(function(coin){
+      return(
+        React.createElement(Coin, {key: coin.id, coin: coin, path: path})
       );
     }, this);
+
     return(
-      React.createElement("div", null, 
-        React.createElement("table", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, "x"), 
-            React.createElement("th", null, "y"), 
-            React.createElement("th", null), 
-            React.createElement("th", null)
-          ), 
-          points
-        ), 
-        React.createElement(AddPoint, {points: this.props.points})
+      React.createElement("svg", {className: "game_display"}, 
+        React.createElement("path", {className: "container", d: path}), 
+        coins, 
+        React.createElement(Linel, {linel: linel, path: path})
       )
     );
   }
 });
 
 
-var PointsTable = React.createClass({displayName: "PointsTable",
+var Fullscreen = React.createClass({displayName: "Fullscreen",
+  enter_fullscreen: function(){
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  },
   render: function(){
-    var points = this.props.points.map(function(point){
-      return(
-        React.createElement(PointEditor, {key: point.key, point: point})
-      );
-    }, this);
     return(
-      React.createElement("div", null, 
-        React.createElement("table", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, "x"), 
-            React.createElement("th", null, "y"), 
-            React.createElement("th", null, "ax"), 
-            React.createElement("th", null, "ay"), 
-            React.createElement("th", null, "bx"), 
-            React.createElement("th", null, "by"), 
-            React.createElement("th", null), 
-            React.createElement("th", null)
-          ), 
-          points
-        ), 
-        React.createElement(AddPoint, {points: this.props.points})
-      )
+      React.createElement("button", {className: "positive", onClick: this.enter_fullscreen}, "Fullscreen")
     );
   }
 });
 
+var Linel = React.createClass({displayName: "Linel",
+  calculateLinelStyle: function(linel){
+    return {
+      strokeDasharray: linel.length + "px 100000000px",
+      strokeDashoffset: -linel.position + 'px'
+    };
+  },
+
+  render: function(){
+    var linel = this.props.linel;
+    var path = this.props.path;
+    return(
+      React.createElement("path", {className: "linel", style: this.calculateLinelStyle(linel), d: path})
+    );
+  }
+});
 
 window.linel.Position = function(events){
   var constrain_position = function(length, position){
@@ -20042,97 +20712,6 @@ window.linel.Render = function(events, dom_element){
   });
 
 };
-
-var SegmentEditor = React.createClass({displayName: "SegmentEditor",
-  destroy: function(){
-    events.pub('destroy', this.props.segment);
-  },
-  edit: function(){
-    this.s = {
-      key:this.props.segment.key,
-      collection: 'segments',
-      colour: this.props.segment.colour,
-      start: this.props.segment.start,
-      length: this.props.segment.length,
-      modifier: this.props.segment.modifier,
-      editing: false
-    };
-    events.pub('edit', this.props.segment);
-  },
-  save: function(){
-    this.props.segment.editing = false;
-    events.pub('update', this.props.segment);
-  },
-  cancel: function(){
-    events.pub('update', this.s);
-  },
-  get_ref_int: function(name){
-    return parseInt(this.get_ref(name));
-  },
-  get_ref: function(name){
-    return this.refs[name].getDOMNode().value;
-  },
-  changeInput: function(){
-    this.props.segment.colour = this.get_ref('colour');
-    this.props.segment.start = this.get_ref_int('start');
-    this.props.segment.length = this.get_ref_int('length');
-    this.props.segment.modifier = this.get_ref_int('modifier');
-    events.pub('update', this.props.segment);
-  },
-  render: function(){
-    var content;
-    if(this.props.segment.editing){
-      content =
-      React.createElement("tr", null, 
-        React.createElement("td", null, React.createElement("input", {type: "text", value: this.props.segment.colour, onChange: this.changeInput, ref: "colour"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.segment.start, onChange: this.changeInput, ref: "start"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.segment.length, onChange: this.changeInput, ref: "length"})), 
-        React.createElement("td", null, React.createElement("input", {type: "number", value: this.props.segment.modifier, onChange: this.changeInput, ref: "modifier"})), 
-        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.cancel}, "cancel")), 
-        React.createElement("td", null, React.createElement("button", {className: "positive", onClick: this.save}, "save"))
-      );
-    }else{
-      content =
-      React.createElement("tr", null, 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.colour)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.start)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.length)), 
-        React.createElement("td", null, React.createElement("span", {className: "pre-input"}, this.props.segment.modifier)), 
-        React.createElement("td", null, React.createElement("button", {className: "negative", onClick: this.destroy}, "destroy")), 
-        React.createElement("td", null, React.createElement("button", {onClick: this.edit}, "edit"))
-      );
-    }
-    return(content);
-  }
-});
-
-
-var SegmentsTable = React.createClass({displayName: "SegmentsTable",
-  render: function(){
-    var segments = this.props.segments.map(function(segment){
-      return(
-        React.createElement(SegmentEditor, {key: segment.key, segment: segment})
-      );
-    }, this);
-    return(
-      React.createElement("div", null, 
-        React.createElement("table", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, "colour"), 
-            React.createElement("th", null, "start"), 
-            React.createElement("th", null, "length"), 
-            React.createElement("th", null, "modifier"), 
-            React.createElement("th", null), 
-            React.createElement("th", null)
-          ), 
-          segments
-        ), 
-        React.createElement(AddSegment, {segments: this.props.segments})
-      )
-    );
-  }
-});
-
 
 window.linel.UI = function(events){
   window.addEventListener('keyup', function(event){

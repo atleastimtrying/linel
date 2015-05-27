@@ -13,38 +13,23 @@ path {
   stroke-width: 2px;
   stroke-linecap: round;
   stroke: white; }
-  path#container {
-    stroke: #ccc;
-    stroke-width: 7px; }
-  path#linel {
-    stroke: red;
-    stroke-width: 3px;
-    stroke-dasharray: 10px 900px;
-    stroke-dashoffset: -1px; }
-  path.pre_path {
-    stroke: #aaa; }
 
 svg {
   display: block;
   width: 100%;
   height: 100%;
+  max-height: 400px;
   position: relative;
-  z-index: 1; }
+  z-index: 1;
+  background: #333; }
 
-table {
-  width: 100%; }
+h1 {
+  font-size: 4em;
+  font-weight: lighter; }
 
-textarea {
-  width: 100%;
-  min-height: 40px;
-  height: 360px;
-  overflow-y: scroll; }
-
-th {
-  width: 12.5%;
-  text-align: left;
-  padding: 0.5em;
-  bordeR: 1px solid transparent; }
+h2 span {
+  font-size: 2em;
+  font-weight: lighter; }
 
 input,
 span.pre-input {
@@ -58,58 +43,158 @@ input {
   background: white;
   border: 1px solid #eee; }
 
+textarea {
+  width: 100%;
+  min-height: 40px;
+  height: 360px;
+  overflow-y: scroll;
+  padding: 1em;
+  border-radius: 2px;
+  border: 1px solid #d0d0d0; }
+
+.editor .view .svgContainer {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  margin-bottom: 1em;
+  border-radius: 2px; }
+  .editor .view .svgContainer .input,
+  .editor .view .svgContainer svg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute; }
+  .editor .view .svgContainer svg {
+    background: #333;
+    border-radius: 2px; }
+    .editor .view .svgContainer svg circle.indicator {
+      stroke: white;
+      stroke-width: 1px;
+      fill: rgba(0, 0, 0, 0.5); }
+  .editor .view .svgContainer .input {
+    z-index: 10; }
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  align-items: stretch; }
+  .wrapper .view {
+    width: 60%;
+    height: 100%;
+    padding: 1em; }
+  .wrapper .aside {
+    width: 40%;
+    height: 100%;
+    padding: 1em;
+    border-left: 1px solid #111;
+    overflow-y: scroll; }
+
+.level_menu_item {
+  background: #f5f5f5;
+  padding: 0.5em;
+  margin-top: 1em;
+  border-radius: 2px; }
+  .level_menu_item h2 {
+    margin-bottom: 1em; }
+    .level_menu_item h2 span {
+      font-weight: lighter;
+      font-size: 1.5em; }
+  .level_menu_item ul {
+    padding-left: 1em; }
+    .level_menu_item ul li {
+      margin-bottom: 0.5em; }
+  .level_menu_item svg {
+    height: 400px;
+    width: 800px;
+    background: #333;
+    float: right;
+    zoom: 0.3; }
+    .level_menu_item svg path {
+      stroke: white;
+      stroke-width: 5px; }
+  .level_menu_item .btn {
+    margin-right: 0.5em; }
+
+header.editor_header {
+  display: flex;
+  border-bottom: 1px solid #333; }
+  header.editor_header input {
+    width: 240px;
+    margin: 0.5em;
+    margin-right: 0; }
+    header.editor_header input[type=number] {
+      width: 4em; }
+  header.editor_header button,
+  header.editor_header .btn {
+    margin: 0.5em;
+    margin-right: 0; }
+
+.table_editor {
+  margin-bottom: 1em; }
+  .table_editor table {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 1em; }
+    .table_editor table thead {
+      background: #333; }
+      .table_editor table thead th {
+        width: 12.5%;
+        text-align: left;
+        padding: 0.5em;
+        color: white;
+        border: 1px solid transparent; }
+    .table_editor table tr {
+      border-bottom: 1px solid #ccc; }
+    .table_editor table td button {
+      width: 100%; }
+
+a.btn,
 button {
   display: inline-block;
   padding: 0.5em;
-  background: #ccc;
-  border: 1px solid #999;
+  background: #3366CC;
+  color: white;
+  border: 1px solid #114499;
   cursor: pointer;
-  border-radius: 2px; }
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.25s ease-out; }
+  a.btn:hover,
+  button:hover {
+    background: #2244AA; }
+  a.btn.negative,
   button.negative {
     background: #c99;
     border: 1px solid #633;
     color: white; }
+    a.btn.negative:hover,
+    button.negative:hover {
+      background: #633;
+      border: 1px solid #300; }
+  a.btn.positive,
   button.positive {
     background: #9C9;
     border: 1px solid #363;
     color: white; }
+    a.btn.positive:hover,
+    button.positive:hover {
+      background: #363;
+      border: 1px solid #030; }
 
-td button {
-  width: 100%; }
-
-.editor {
-  height: 100%;
-  display: flex; }
-  .editor .view .svgContainer {
-    width: 100%;
-    height: 400px;
-    position: relative; }
-    .editor .view .svgContainer .input,
-    .editor .view .svgContainer svg {
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      position: absolute; }
-    .editor .view .svgContainer svg {
-      background: #333; }
-      .editor .view .svgContainer svg circle.indicator {
-        stroke: white;
-        stroke-width: 1px;
-        fill: rgba(0, 0, 0, 0.5); }
-    .editor .view .svgContainer .input {
-      z-index: 10; }
-
-.view {
-  width: 60%;
-  height: 100%; }
-
-.aside {
-  width: 40%;
-  height: 100%;
-  padding: 1em;
-  border-left: 1px solid #111;
-  background: #f5f5f5;
-  overflow-y: scroll; }
+.game_display path.linel {
+  /*stroke:#3366CC;*/
+  stroke: white;
+  stroke-width: 5px; }
+.game_display path.container {
+  stroke: #666;
+  stroke-width: 11px; }
+.game_display path.coin {
+  stroke-width: 11px;
+  stroke: yellow;
+  stroke-dasharray: 1px 10000000px; }
 
 /*# sourceMappingURL=linel.min.css.map */
