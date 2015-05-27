@@ -11,11 +11,10 @@ var GameDisplay = React.createClass({
   },
 
   pointsToPath: function(points){
-    if(this.path){
-      return this.path;
-    }else{
-      return this.path = this.pointsToString(points);
+    if(!this.path){
+      this.path = this.pointsToString(points);
     }
+    return this.path;
   },
 
   not_found: function(coin){
