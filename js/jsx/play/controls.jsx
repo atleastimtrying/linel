@@ -5,12 +5,14 @@ var Controls = React.createClass({
   endMovement: function(){
     this.position_modifier = false;
   },
-  emit: function(){
-    events.pub('increment_position', this.position_modifier);
+  emit: function(position_modifier){
+    events.pub('increment_position', position_modifier);
   },
   loop: function(){
     if(this.position_modifier){
-      this.emit();
+      this.emit(this.position_modifier);
+    }else{
+      this.emit(0);
     }
     requestAnimationFrame(this.loop);
   },

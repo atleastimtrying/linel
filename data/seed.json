@@ -39,6 +39,7 @@
   ],
   "length": 531.0037841796875
 }, {
+  "id": 1,
   "title": "curly",
   "author": "Anders",
   "difficulty": 1,
@@ -235,5 +236,70 @@
   "coins": [],
   "id": 1,
   "length": 1948.356201171875
+},
+{
+  "id": 2,
+  "title": "Hill",
+  "author": "Anders",
+  "difficulty": 1,
+  "points": [
+    {
+      "key": 1440939020710,
+      "collection": "points",
+      "x": 67,
+      "y": 297,
+      "ax": 67,
+      "ay": 298,
+      "bx": 67,
+      "by": 297,
+      "editing": false
+    },
+    {
+      "key": 1440939021489,
+      "collection": "points",
+      "x": 351,
+      "y": 297,
+      "ax": 351,
+      "ay": 297,
+      "bx": 351,
+      "by": 297,
+      "editing": false
+    },
+    {
+      "key": 1440939022815,
+      "collection": "points",
+      "x": 683,
+      "y": 86,
+      "ax": 683,
+      "ay": 86,
+      "bx": 683,
+      "by": 86,
+      "editing": false
+    },
+    {
+      "key": 1440939023607,
+      "collection": "points",
+      "x": 914,
+      "y": 84,
+      "ax": 914,
+      "ay": 84,
+      "bx": 914,
+      "by": 84,
+      "editing": false
+    }
+  ],
+  "segments": [
+    {
+      "key": 1440939039202,
+      "collection": "segments",
+      "colour": "pink",
+      "start": 289,
+      "length": 384,
+      "modifier": -1,
+      "editing": false
+    }
+  ],
+  "coins": [],
+  "length": 908.3850708007812
 }
 ]

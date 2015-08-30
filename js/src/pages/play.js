@@ -38,9 +38,9 @@ window.linel.Play = function(){
     getInitialState: function(){
       var level = this.local_get() || this.empty_level();
       level.gameover = false;
-      level.coins = level.coins.map(function(coin){ 
+      level.coins = level.coins.map(function(coin){
         coin.found = false;
-        return coin; 
+        return coin;
       });
       level.linel = this.start_linel();
       return level;
@@ -61,8 +61,44 @@ window.linel.Play = function(){
       }
     },
 
-    incrementPosition: function(position_modifier){
-      this.state.linel.position += position_modifier;
+    getSegmentModifier: function(position){
+      return this.state.segments.filter(function(segment){
+        return(segment.start < position && segment.start + segment.length > position);
+      }).map(function(segment){
+        return segment.modifier;
+      }).reduce(function(previous, current){
+        return previous + current;
+      }, 0);
+    },
+
+    acceleration: 0,
+
+    incrementPosition: function(direction){
+      var segment_modifier = this.getSegmentModifier(this.state.linel.position);
+
+      //environment;
+      this.acceleration += segment_modifier/8;
+
+      //linel_motion;
+      this.acceleration += direction/4;
+
+      //friction;
+      if(this.acceleration > 0){
+        this.acceleration -= 0.1;
+      }
+      if(this.acceleration < 0){
+        this.acceleration += 0.1;
+      }
+
+      //speed limit
+      if(this.acceleration < -10){
+        this.acceleration = -10;
+      }
+      if(this.acceleration > 10){
+        this.acceleration = 10;
+      }
+      this.state.linel.position += this.acceleration;
+
       this.checkCoins();
       this.checkGameEnd();
       this.setState(this.state);
