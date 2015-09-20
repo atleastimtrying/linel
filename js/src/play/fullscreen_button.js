@@ -1,4 +1,6 @@
-var Fullscreen = React.createClass({displayName: "Fullscreen",
+var React = require('react');
+module.exports = React.createClass({
+  displayName: 'Fullscreen',
   enter_fullscreen: function(){
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen();

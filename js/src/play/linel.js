@@ -1,4 +1,6 @@
-var Linel = React.createClass({displayName: "Linel",
+var React = require('react');
+module.exports = React.createClass({
+  displayName: 'Linel',
   calculateLinelStyle: function(linel){
     return {
       strokeDasharray: linel.length + "px 100000000px",

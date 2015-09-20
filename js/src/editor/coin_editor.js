@@ -1,6 +1,9 @@
-var CoinEditor = React.createClass({displayName: "CoinEditor",
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "CoinEditor",
   destroy: function(){
-    events.pub('destroy', this.props.coin);
+    events.emit('destroy', this.props.coin);
   },
   edit: function(){
     this.s = {
@@ -9,14 +12,14 @@ var CoinEditor = React.createClass({displayName: "CoinEditor",
       location: this.props.coin.location,
       editing: false
     };
-    events.pub('edit', this.props.coin);
+    events.emit('edit', this.props.coin);
   },
   save: function(){
     this.props.coin.editing = false;
-    events.pub('update', this.props.coin);
+    events.emit('update', this.props.coin);
   },
   cancel: function(){
-    events.pub('update', this.s);
+    events.emit('update', this.s);
   },
   get_ref_int: function(name){
     return parseInt(this.get_ref(name));
@@ -26,7 +29,7 @@ var CoinEditor = React.createClass({displayName: "CoinEditor",
   },
   changeInput: function(){
     this.props.coin.location = this.get_ref_int('location');
-    events.pub('update', this.props.coin);
+    events.emit('update', this.props.coin);
   },
   render: function(){
     var content;

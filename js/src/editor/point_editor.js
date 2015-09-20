@@ -1,6 +1,9 @@
-var PointEditor = React.createClass({displayName: "PointEditor",
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "PointEditor",
   destroy: function(){
-    events.pub('destroy', this.props.point);
+    events.emit('destroy', this.props.point);
   },
   edit: function(){
     this.p = {
@@ -14,14 +17,14 @@ var PointEditor = React.createClass({displayName: "PointEditor",
       by: this.props.point.by,
       editing: false
     };
-    events.pub('edit', this.props.point);
+    events.emit('edit', this.props.point);
   },
   save: function(){
     this.props.point.editing = false;
-    events.pub('update', this.props.point);
+    events.emit('update', this.props.point);
   },
   cancel: function(){
-    events.pub('update', this.p);
+    events.emit('update', this.p);
   },
   get_ref_int: function(name){
     return parseInt(this.refs[name].getDOMNode().value);
@@ -33,7 +36,7 @@ var PointEditor = React.createClass({displayName: "PointEditor",
     this.props.point.ay = this.get_ref_int('ay') || 0;
     this.props.point.bx = this.get_ref_int('bx') || 0;
     this.props.point.by = this.get_ref_int('by') || 0;
-    events.pub('update', this.props.point);
+    events.emit('update', this.props.point);
   },
   render: function(){
     var content;

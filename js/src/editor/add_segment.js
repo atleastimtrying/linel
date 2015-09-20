@@ -1,4 +1,7 @@
-var AddSegment = React.createClass({displayName: "AddSegment",
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "AddSegment",
   findPrevious: function(){
     if(this.props.segments.length){
       return this.props.segments[this.props.segments.length - 1];
@@ -8,7 +11,7 @@ var AddSegment = React.createClass({displayName: "AddSegment",
   },
   emit: function(){
     var last_segment = this.findPrevious();
-    events.pub('create', {
+    events.emit('create', {
       key: Date.now(),
       collection: 'segments',
       colour: last_segment.colour,

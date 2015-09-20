@@ -1,4 +1,8 @@
-var CoinsTable = React.createClass({
+var React = require('react');
+var CoinEditor = require('./coin_editor');
+var AddCoin = require('./add_coin');
+module.exports = React.createClass({
+  displayName: "CoinsTable",
   render: function(){
     var coins = this.props.coins.map(function(coin){
       return(

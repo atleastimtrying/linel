@@ -1,0 +1,28 @@
+default:
+  - 'build'
+  - 'test'
+
+build:
+  - 'clean:all'
+  - 'react'
+  - 'browserify'
+  - 'uglify'
+  - 'sass'
+  - 'jade'
+  - 'copy:html'
+  - 'imagemin'
+  - 'svgmin'
+  - 'copy:data'
+
+test:
+  - 'jasmine'
+  - 'jshint'
+
+dev:
+  - 'default'
+  - 'http-server'
+  - 'notify:server'
+  - 'watch'
+
+tasks:
+  - 'availabletasks'

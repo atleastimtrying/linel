@@ -1,4 +1,9 @@
-var GameDisplay = React.createClass({
+var React = require('react');
+var Linel = require('./linel');
+var Coin = require('./coin');
+
+module.exports = React.createClass({
+  displayName: 'GameDisplay',
   boundary: 150,
   needs_updating: function(state){
     var linel_path = document.querySelector('path.linel');

@@ -1,4 +1,7 @@
-var Input = React.createClass({displayName: "Input",
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "Input",
   startPoint: function(event){
     var x = event.nativeEvent.offsetX;
     var y = event.nativeEvent.offsetY;
@@ -13,7 +16,7 @@ var Input = React.createClass({displayName: "Input",
       by: y,
       editing: true
     };
-    window.events.pub('create', this.p);
+    events.emit('create', this.p);
   },
   updatePoint: function(event){
     if(this.p && this.p.editing){
@@ -21,12 +24,12 @@ var Input = React.createClass({displayName: "Input",
       var y = event.nativeEvent.offsetY;
       this.p.ax = x;
       this.p.ay = y;
-      window.events.pub('update', this.p);
+      events.emit('update', this.p);
     }
   },
   endPoint: function(){
     this.p.editing = false;
-    window.events.pub('update', this.p);
+    events.emit('update', this.p);
   },
   render: function(){
     return(

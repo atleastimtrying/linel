@@ -1,6 +1,9 @@
-var Save = React.createClass({
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "Save",
   save: function(){
-    events.pub('save');
+    events.emit('save');
   },
   render: function(){
     return(

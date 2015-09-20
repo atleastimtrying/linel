@@ -1,4 +1,8 @@
-var LevelMenuItem = React.createClass({
+var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+module.exports = React.createClass({
+  displayName: 'LevelMenuItem',
   pointsToString: function(points){
     var strings = points.map(function(point, i){
       if(i === 0){
@@ -23,8 +27,8 @@ var LevelMenuItem = React.createClass({
           <li>coins: {level.coins.length || "0"}</li>
           <li>length: {level.length || "0"}</li>
         </ul>
-        <a href={ "edit.html#" + level.id } className="btn">Edit</a>
-        <a href={ "play.html#" + level.id } className="btn">Play</a>
+        <Link to={"/editor/" + level.id} className="btn">Edit</Link>
+        <Link to={"/play/" + level.id} className="btn">Play</Link>
       </div>
     );
   }

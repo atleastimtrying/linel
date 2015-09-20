@@ -1,4 +1,7 @@
-var Display = React.createClass({
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "Display",
   pointsToString: function(points){
     var strings = points.map(function(point, i){
       if(i === 0){
@@ -37,8 +40,8 @@ var Display = React.createClass({
   componentDidUpdate: function(){
     var path_length = this.refs.container.getDOMNode().getTotalLength();
     if(this.refs.container && path_length !== this.props.state.length){
-      events.pub('attribute_update', {
-        attribute: 'length', 
+      events.emit('attribute_update', {
+        attribute: 'length',
         value: path_length
       });
     }

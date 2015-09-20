@@ -1,4 +1,7 @@
-var Controls = React.createClass({displayName: "Controls",
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: 'Controls',
   startMovement: function(which){
     this.position_modifier = (which === 39) ? 1 : -1;
   },
@@ -6,7 +9,7 @@ var Controls = React.createClass({displayName: "Controls",
     this.position_modifier = false;
   },
   emit: function(position_modifier){
-    events.pub('increment_position', position_modifier);
+    events.emit('increment_position', position_modifier);
   },
   loop: function(){
     if(this.position_modifier){

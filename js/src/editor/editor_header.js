@@ -1,4 +1,8 @@
-var EditorHeader = React.createClass({displayName: "EditorHeader",
+var React = require('react');
+var AttributeEditor = require('./attribute_editor');
+var Save = require('./save');
+module.exports = React.createClass({
+  displayName: "EditorHeader",
   render: function(){
     var state = this.props.state;
     return(

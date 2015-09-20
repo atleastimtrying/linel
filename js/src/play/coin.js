@@ -1,4 +1,6 @@
-var Coin = React.createClass({displayName: "Coin",
+var React = require('react');
+module.exports = React.createClass({
+  displayName: 'Coin',
   calculateCoinStyle: function(coin){
     return {
       strokeDashoffset: -coin.location + "px"

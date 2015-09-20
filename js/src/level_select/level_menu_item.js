@@ -1,4 +1,8 @@
-var LevelMenuItem = React.createClass({displayName: "LevelMenuItem",
+var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+module.exports = React.createClass({
+  displayName: 'LevelMenuItem',
   pointsToString: function(points){
     var strings = points.map(function(point, i){
       if(i === 0){
@@ -23,8 +27,8 @@ var LevelMenuItem = React.createClass({displayName: "LevelMenuItem",
           React.createElement("li", null, "coins: ", level.coins.length || "0"), 
           React.createElement("li", null, "length: ", level.length || "0")
         ), 
-        React.createElement("a", {href:  "edit.html#" + level.id, className: "btn"}, "Edit"), 
-        React.createElement("a", {href:  "play.html#" + level.id, className: "btn"}, "Play")
+        React.createElement(Link, {to: "/editor/" + level.id, className: "btn"}, "Edit"), 
+        React.createElement(Link, {to: "/play/" + level.id, className: "btn"}, "Play")
       )
     );
   }

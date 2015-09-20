@@ -1,4 +1,8 @@
-var PointsTable = React.createClass({
+var React = require('react');
+var PointEditor = require('./point_editor');
+var AddPoint = require('./add_point');
+module.exports = React.createClass({
+  displayName: "PointsTable",
   render: function(){
     var points = this.props.points.map(function(point){
       return(

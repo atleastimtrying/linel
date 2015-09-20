@@ -1,4 +1,7 @@
-var AddPoint = React.createClass({
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: 'AddPoint',
   findLastPoint: function(){
     if(this.props.points.length){
       return this.props.points[this.props.points.length - 1];
@@ -8,7 +11,7 @@ var AddPoint = React.createClass({
   },
   emitPoint: function(){
     var last_point = this.findLastPoint();
-    events.pub('create', {
+    events.emit('create', {
       key: Date.now(),
       collection: 'points',
       x: last_point.x + 20,

@@ -1,6 +1,9 @@
-var SegmentEditor = React.createClass({displayName: "SegmentEditor",
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "SegmentEditor",
   destroy: function(){
-    events.pub('destroy', this.props.segment);
+    events.emit('destroy', this.props.segment);
   },
   edit: function(){
     this.s = {
@@ -12,14 +15,14 @@ var SegmentEditor = React.createClass({displayName: "SegmentEditor",
       modifier: this.props.segment.modifier,
       editing: false
     };
-    events.pub('edit', this.props.segment);
+    events.emit('edit', this.props.segment);
   },
   save: function(){
     this.props.segment.editing = false;
-    events.pub('update', this.props.segment);
+    events.emit('update', this.props.segment);
   },
   cancel: function(){
-    events.pub('update', this.s);
+    events.emit('update', this.s);
   },
   get_ref_int: function(name){
     return parseInt(this.get_ref(name));
@@ -32,7 +35,7 @@ var SegmentEditor = React.createClass({displayName: "SegmentEditor",
     this.props.segment.start = this.get_ref_int('start');
     this.props.segment.length = this.get_ref_int('length');
     this.props.segment.modifier = this.get_ref_int('modifier');
-    events.pub('update', this.props.segment);
+    events.emit('update', this.props.segment);
   },
   render: function(){
     var content;

@@ -1,6 +1,9 @@
-var AttributeEditor = React.createClass({
+var React = require('react');
+var events = require('eventthing');
+module.exports = React.createClass({
+  displayName: "AttributeEditor",
   update: function(){
-    events.pub('attribute_update', {attribute: this.props.attribute, value: this.refs.input.getDOMNode().value});
+    events.emit('attribute_update', {attribute: this.props.attribute, value: this.refs.input.getDOMNode().value});
   },
   render: function(){
     var type = this.props.type || 'text';

@@ -1,4 +1,8 @@
-var SegmentsTable = React.createClass({
+var React = require('react');
+var SegmentEditor = require('./segment_editor');
+var AddSegment = require('./add_segment');
+module.exports = React.createClass({
+  displayName: "SegmentsTable",
   render: function(){
     var segments = this.props.segments.map(function(segment){
       return(
