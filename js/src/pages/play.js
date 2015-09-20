@@ -1,5 +1,7 @@
 var React = require('react');
 var events = require('eventthing');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 
 var GameDisplay = require('../play/display');
 var Controls = require('../play/controls');
@@ -121,7 +123,7 @@ module.exports = React.createClass({
       React.createElement(Controls, null)
       ), 
       React.createElement("div", {className: "aside"}, 
-      React.createElement("a", {className: "btn", href: "/index.html"}, "Home"), 
+      React.createElement(Link, {className: "btn", to: "/"}, "Home"), 
       React.createElement(Fullscreen, null), 
       React.createElement(JSONDisplay, {state: this.state.coins})
       )
