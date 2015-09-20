@@ -116,7 +116,7 @@ window.linel.Play = function(){
             <Controls />
           </div>
           <div className="aside">
-            <a href="/index.html">Home</a>
+            <a className="btn" href="/index.html">Home</a>
             <Fullscreen />
             <JSONDisplay state={this.state.coins} />
           </div>

@@ -116,7 +116,7 @@ window.linel.Play = function(){
             React.createElement(Controls, null)
           ), 
           React.createElement("div", {className: "aside"}, 
-            React.createElement("a", {href: "/index.html"}, "Home"), 
+            React.createElement("a", {className: "btn", href: "/index.html"}, "Home"), 
             React.createElement(Fullscreen, null), 
             React.createElement(JSONDisplay, {state: this.state.coins})
           )
