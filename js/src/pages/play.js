@@ -124,8 +124,7 @@ module.exports = React.createClass({
       ), 
       React.createElement("div", {className: "aside"}, 
       React.createElement(Link, {className: "btn", to: "/"}, "Home"), 
-      React.createElement(Fullscreen, null), 
-      React.createElement(JSONDisplay, {state: this.state.coins})
+      React.createElement(Fullscreen, null)
       )
       )
     );

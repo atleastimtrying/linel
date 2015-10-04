@@ -15,28 +15,31 @@ module.exports = React.createClass({
   },
 
   destroy: function(element){
-    this.state[element.collection] = this.state[element.collection].filter(function(item){
+    var update = {};
+    update[element.collection] = this.state[element.collection].filter(function(item){
       return item.key !== element.key;
     });
-    this.setState(this.state);
+    this.setState(update);
   },
 
   edit: function(element){
-    this.state[element.collection] = this.state[element.collection].map(function(item){
+    var update = {};
+    update[element.collection] = this.state[element.collection].map(function(item){
       item.editing = (item.key === element.key);
       return item;
     });
-    this.setState(this.state);
+    this.setState(update);
   },
 
   update: function(element){
-    this.state[element.collection] = this.state[element.collection].map(function(item){
+    var update = {};
+    update[element.collection] = this.state[element.collection].map(function(item){
       if(item.key === element.key){
         item = element;
       }
       return item;
     });
-    this.setState(this.state);
+    this.setState(update);
   },
 
   get_all_levels: function(){
@@ -48,7 +51,7 @@ module.exports = React.createClass({
     var highest_level = levels.reduce(function(previous, level){
       return Math.max(previous, parseInt(level.id));
     }, 0);
-    this.state.id = highest_level + 1;
+    thi.setState({id: highest_level + 1});
     levels.push(this.state);
     this.set_levels(levels);
   },
@@ -77,8 +80,9 @@ module.exports = React.createClass({
   },
 
   attribute_update: function(reference){
-    this.state[reference.attribute] = reference.value;
-    this.setState(this.state);
+    var update = {};
+    update[reference.attribute] = reference.value;
+    this.setState(update);
   },
 
   starter: function(){
@@ -120,17 +124,17 @@ module.exports = React.createClass({
         <div className="editor wrapper">
           <div className="view">
             <div className="svgContainer">
-            <Input />
-            <Display state={this.state} />
+              <Input />
+              <Display state={this.state} />
+            </div>
+            <PointsTable points={this.state.points} />
+            <SegmentsTable segments={this.state.segments} />
           </div>
-          <PointsTable points={this.state.points} />
+          <div className="aside">
+            <CoinsTable coins={this.state.coins} />
+            <JSONDisplay state={this.state}/>
+          </div>
         </div>
-      <div className="aside">
-      <CoinsTable coins={this.state.coins} />
-      <SegmentsTable segments={this.state.segments} />
-      <JSONDisplay state={this.state}/>
-      </div>
-      </div>
       </div>
     );
   }

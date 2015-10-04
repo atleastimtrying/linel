@@ -1,0 +1,8 @@
+@media(max-width:400px){
+  .play.wrapper{
+    .aside{
+      order:-1;
+      flex-grow:0;
+    }
+  }
+}

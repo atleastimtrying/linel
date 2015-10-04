@@ -125,7 +125,6 @@ module.exports = React.createClass({
       <div className="aside">
       <Link className="btn" to="/">Home</Link>
       <Fullscreen />
-      <JSONDisplay state={this.state.coins} />
       </div>
       </div>
     );

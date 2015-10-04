@@ -18,14 +18,13 @@
     }
   }
   svg{
-    height: 400px;
-    width: 800px;
+    height: 200px;
+    width: 100%;
     background:#333;
-    float: right;
-    zoom:0.3;
     path{
       stroke:white;
       stroke-width:5px;
+      transform: scale(0.2);
     }
   }
   .btn{

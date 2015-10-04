@@ -2,6 +2,7 @@ var React = require('react');
 var events = require('eventthing');
 module.exports = React.createClass({
   displayName: 'AddCoin',
+
   findCoins: function(){
     if(this.props.coins.length){
       return this.props.coins[this.props.coins.length - 1];
@@ -9,6 +10,7 @@ module.exports = React.createClass({
       return {location: 20};
     }
   },
+
   emitCoin: function(){
     var last_coin = this.findCoins();
     events.emit('create', {
@@ -18,6 +20,7 @@ module.exports = React.createClass({
       editing: false
     });
   },
+
   render: function(){
     return(React.createElement("button", {className: "positive", onClick: this.emitCoin}, "Add Coin"));
   }
